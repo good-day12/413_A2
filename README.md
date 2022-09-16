@@ -1,7 +1,9 @@
 # CSC 413 - Project Two - The Interpreter
 
-## Student Name  : Name here
+## Student Name  : Andre Flores
 
-## Student ID    : ID here
+## Student ID    : 918175055
 
-## Student Email : Email here
+## Student Email : aflores50@sfsu.edu
+
+

@@ -6,8 +6,8 @@ import java.util.Stack;
 
 class RunTimeStack {
 
-    private List<Integer>  runTimeStack;
-    private Stack<Integer> framePointer;
+    private List<Integer>  runTimeStack; //values for entire program
+    private Stack<Integer> framePointer; //tells us where every frame begins
 
     public RunTimeStack() {
         runTimeStack = new ArrayList<>();
