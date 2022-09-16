@@ -44,10 +44,10 @@ public class Program {
 
     /**
      * Makes multiple passes through the program ArrayList resolving
-     * addrss for Goto,Call and FalseBranch bytecodes. These bytecodes
+     * address for Goto,Call and FalseBranch bytecodes. These bytecodes
      * can only jump to Label codes that have a matching label value.
      * HINT: make note what type of data-structure ByteCodes are stored in.
-     * **** METHOD SIGNATURE CANNOT BE CAHNGED *****
+     * **** METHOD SIGNATURE CANNOT BE CHANGED *****
      */
     public void resolveAddress() {
 
