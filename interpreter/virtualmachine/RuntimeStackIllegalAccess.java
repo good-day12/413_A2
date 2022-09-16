@@ -4,7 +4,7 @@ package interpreter.virtualmachine;
  * accesses into the runtimestack class.
  * This exception is used to bubble up all
  * exceptions that can be thrown by any
- * RunTimeStack class runctions.
+ * RunTimeStack class functions.
  * 
  * Note that we are only exposing the constructor
  * from Exception that accepts a Throwable object.

@@ -29,4 +29,8 @@ public class VirtualMachine {
             programCounter++;
         }
     }
+
+    /**
+     * Create a method to halt program if HaltCode is found?
+     */
 }

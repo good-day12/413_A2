@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/**
+ *  You will need to make sure that you protect the RunTimeStack from stack overflow or
+ * stack underflow errors. Also make sure no ByteCode can pop past any frame boundary.
+ */
+
 class RunTimeStack {
 
     private List<Integer>  runTimeStack; //values for entire program
     private Stack<Integer> framePointer; //tells us where every frame begins
+
+    private int index; //keep track of our runTimeStack index
 
     public RunTimeStack() {
         runTimeStack = new ArrayList<>();
@@ -33,7 +40,14 @@ class RunTimeStack {
      * @throws RuntimeStackIllegalAccess if peeking an empty stack.
      */
     public int peek() throws RuntimeStackIllegalAccess {
-        return -1;
+
+        //I think these should take into account where we are at within the frame pointer
+        try{
+            //index-framePointer.peek() to account for our current frame
+            return runTimeStack.get(index);
+        } catch (NullPointerException ex){
+            throw new RuntimeStackIllegalAccess(ex);
+        }
     }
 
     /**
@@ -42,7 +56,9 @@ class RunTimeStack {
      * @return value pushed
      */
     public int push(int i) {
-        return -1;
+        runTimeStack.add(i); //insert element into top of our list
+        index++;//increment counter to keep track of index
+        return i;
     }
 
     /**
@@ -51,7 +67,13 @@ class RunTimeStack {
      * @throws RuntimeStackIllegalAccess if popping an empty stack
      */
     public int pop() throws RuntimeStackIllegalAccess {
-        return -1;
+        try{
+            int temp = runTimeStack.get(index);
+            index--;
+            return temp;
+        } catch (NullPointerException ex){
+            throw new RuntimeStackIllegalAccess(ex);
+        }
     }
 
     /**
@@ -60,8 +82,26 @@ class RunTimeStack {
      * @returns the item just stored
      * @throws RuntimeStackIllegalAccess if offset is out of bounds of current frame
      */
+    //like step 4 to 5 from pdf
     public int store(int offsetFromFramePointer) throws RuntimeStackIllegalAccess {
-        return -1;
+
+        //if our offset is out of bounds of its current frame it'll be bigger than the runtime stack size minus
+        //the current framePointer which holds the size of our frame currently
+        //if out of bounds throw exception
+        try{
+            if (offsetFromFramePointer > runTimeStack.size() - framePointer.peek()) {
+                throw new IndexOutOfBoundsException(); //what exception should I use?
+            }
+            int temp = runTimeStack.get(index - 1); //grab item from top of runTimeStack, one behind index
+            index -= (index - framePointer.peek()); //reset our index to new spot
+            runTimeStack.add(index, temp);
+            index++; //account for new item added
+
+        } catch (IndexOutOfBoundsException ex){
+            throw new RuntimeStackIllegalAccess(ex);
+        }
+
+        return 0;
     }
 
     /**
@@ -72,15 +112,29 @@ class RunTimeStack {
      * @throws RuntimeStackIllegalAccess if offset is out of bounds of current frame
      */
     public int load(int offsetFromFramePointer) throws RuntimeStackIllegalAccess {
-        return -1;
+        try{
+            //if our offset is out of bounds of its current frame it'll be bigger than the runtime stack size minus
+            //the current framePointer which holds the size of our frame currently
+            //if out of bounds throw exception
+            if (offsetFromFramePointer > runTimeStack.size() - framePointer.peek()) {
+                throw new IndexOutOfBoundsException(); //what exception should I use?
+            }
+            int temp = runTimeStack.get(index - offsetFromFramePointer); //Take the item i
+            //           index--;
+            return temp;
+
+        } catch (IndexOutOfBoundsException ex){
+            throw new RuntimeStackIllegalAccess(ex);
+        }
     }
 
     /**
      * create a new frame pointer at the index offset slots down from the top of the runtime stack.
-     * @param offset slots down from the top of the runtime stack
+     * @param offsetFromTopOfRunStack slots down from the top of the runtime stack (for our arguments to be passed)
      */
     public void newFrameAt(int offsetFromTopOfRunStack){
-
+        //add number of new index for new frame into the frame pointer stack,
+        framePointer.push(index - offsetFromTopOfRunStack);
     }
 
     /**
@@ -88,6 +142,6 @@ class RunTimeStack {
      * I think that this should already have access to the framePointer
      */
     public void popFrame(){
-
+        index = framePointer.pop() + 1; //account for off by one error.
     }
 }
