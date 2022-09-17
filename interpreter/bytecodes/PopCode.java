@@ -1,5 +1,7 @@
 package interpreter.bytecodes;
 
+import interpreter.virtualmachine.VirtualMachine;
+
 /**
  * The Pop ByteCode will be used to remove values from the run time stack. The Pop ByteCode
  * is not allowed to remove values across frame boundaries. It is the implementers responsibility
@@ -14,6 +16,19 @@ package interpreter.bytecodes;
  * The Pop bytecode cannot detect when it should be dumped nor should it call dump
  * in the VirtualMachine.
  */
-public class PopCode {
+public class PopCode extends ByteCode{
     private int popNum;
+
+    @Override
+    public void execute(VirtualMachine vm) {
+        popNum = vm.popCode();
+        for (int i = 0; i <= popNum; i++){
+            vm.popCode();
+        }
+    }
+
+    @Override
+    public void dump() {
+        System.out.println("POP " + popNum);
+    }
 }

@@ -21,6 +21,6 @@ public final class ByteCodeLoader {
      * loadCodes fails.
      */
     public Program loadCodes() throws InvalidProgramException {
-       return null;
+       return null; //will return a program with array list full of byte codes
     }
 }

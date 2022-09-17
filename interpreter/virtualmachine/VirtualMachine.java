@@ -13,7 +13,7 @@ public class VirtualMachine {
     private boolean        isRunning;
     private boolean        dumpFlag; //if dumpFlag is on call dump method for each bytecode?
 
-    public VirtualMachine(Program program) {
+    public VirtualMachine(Program program) { //this object will already be loaded with everything by the interpreter
         this.program = program;
         this.runTimeStack = new RunTimeStack();
         this.returnAddress = new Stack<>();
@@ -23,7 +23,7 @@ public class VirtualMachine {
     public void executeProgram(){
         isRunning = true;
 
-        while (isRunning){
+        while (isRunning){ //add check for dump in loop
             ByteCode code = program.getCode(programCounter);
             code.execute(this);
             programCounter++;
@@ -31,6 +31,16 @@ public class VirtualMachine {
     }
 
     /**
+     * Will contain many functions to assist bytecodes
      * Create a method to halt program if HaltCode is found?
      */
+
+    public int popCode(){
+        try {
+            return runTimeStack.pop();
+        } catch (RuntimeStackIllegalAccess e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

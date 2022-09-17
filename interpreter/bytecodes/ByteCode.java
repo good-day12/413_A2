@@ -4,17 +4,15 @@ import interpreter.virtualmachine.VirtualMachine;
 
 /**
  * Each ByteCode SHOULD implement a method to support dumping of the bytecode
+ *
+ * should I make this class abstract? or make a parent class and have that be the abstract one?
  */
 
-public class ByteCode extends AbstractByteCode {
+public abstract class ByteCode {
 
-public void execute(VirtualMachine vm){
+public abstract void execute(VirtualMachine vm);
 
-}
+public abstract void dump();
 
-    @Override
-    void dump(VirtualMachine vm) {
-
-    }
 
 }

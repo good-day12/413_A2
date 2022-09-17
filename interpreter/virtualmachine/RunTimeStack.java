@@ -68,9 +68,14 @@ class RunTimeStack {
      */
     public int pop() throws RuntimeStackIllegalAccess {
         try{
-            int temp = runTimeStack.get(index);
-            index--;
-            return temp;
+            //make sure we don't try to access anything outside our current frame, check if it is empty
+            if(index >= framePointer.peek() && !runTimeStack.isEmpty() ) {
+                int temp = runTimeStack.get(index - 1); //minus one to account for off by one error
+                index--;
+                return temp;
+            } else{
+                throw new NullPointerException();
+            }
         } catch (NullPointerException ex){
             throw new RuntimeStackIllegalAccess(ex);
         }
@@ -119,9 +124,7 @@ class RunTimeStack {
             if (offsetFromFramePointer > runTimeStack.size() - framePointer.peek()) {
                 throw new IndexOutOfBoundsException(); //what exception should I use?
             }
-            int temp = runTimeStack.get(index - offsetFromFramePointer); //Take the item i
-            //           index--;
-            return temp;
+            return runTimeStack.get(index - offsetFromFramePointer);
 
         } catch (IndexOutOfBoundsException ex){
             throw new RuntimeStackIllegalAccess(ex);
@@ -144,4 +147,5 @@ class RunTimeStack {
     public void popFrame(){
         index = framePointer.pop() + 1; //account for off by one error.
     }
+
 }
