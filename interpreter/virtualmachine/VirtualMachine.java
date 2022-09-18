@@ -43,4 +43,12 @@ public class VirtualMachine {
         }
         return -1;
     }
+
+    public void haltCode(){
+        /**
+         * TODO: add checks before closing program
+         */
+        System.exit(2);
+    }
+
 }

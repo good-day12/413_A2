@@ -16,6 +16,11 @@ import interpreter.virtualmachine.VirtualMachine;
  * The Pop bytecode cannot detect when it should be dumped nor should it call dump
  * in the VirtualMachine.
  */
+
+/**
+ * TODO: implement logic
+ */
+
 public class PopCode extends ByteCode{
     private int popNum;
 
