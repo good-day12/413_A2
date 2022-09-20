@@ -5,6 +5,7 @@ import interpreter.virtualmachine.Program;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -41,30 +42,33 @@ public final class ByteCodeLoader {
             Scanner s = new Scanner(new File(codSourceFileName));
 
             while (s.hasNextLine()){
-                String line = s.nextLine();
-                expressionTokenizer = new StringTokenizer(line, delimiter);
-                expressionToken = expressionTokenizer.nextToken();
-
-                String  className = CodeTable.getClassName(expressionToken);
-
-                Class c = Class.forName("edu.sfsu.bytecodes."+ className); //why intelliJ wants Class<?>
-
+                String line = s.nextLine();//variable to hold line read from file
+                expressionTokenizer = new StringTokenizer(line, delimiter);//tokenize line read
+                expressionToken = expressionTokenizer.nextToken();//store next token (our class name)
+                String  className = CodeTable.getClassName(expressionToken);//use class name to create instance of class
+                Class c = Class.forName("interpreter.bytecodes."+ className);//why does IntelliJ want Class<?>
                 ByteCode bc = (ByteCode) c.getDeclaredConstructor().newInstance();
 
+                ArrayList<String> tokens = new ArrayList<>(); //to hold our arguments passed as tokens
 
+                int argCounter = 0; //keep track of how many arguments we have
                 while(expressionTokenizer.hasMoreTokens()){
-                    expressionToken = expressionTokenizer.nextToken();
-
-                    //what do I do with the leftover tokens? store them in array and use them for init argument?
+                    argCounter++; //count how many arguments we have
+                    tokens.add(expressionTokenizer.nextToken());
                 }
-
-                //call bc.init()?
+                if (argCounter == 1){//if there is only one argument, pass it, second will be empty
+                    bc.init(tokens.get(0), "");
+                }
+                else if (argCounter == 2){ //if two, pass it with both arguments
+                    bc.init(tokens.get(0), tokens.get(1));
+                }
                 program.addByteCode(bc);
             }
 
-
+//catch errors thrown by getDeclaredConstructor and file not found error from scanner
         } catch (FileNotFoundException | ClassNotFoundException | InvocationTargetException | InstantiationException |
                 IllegalAccessException | NoSuchMethodException e){
+
             throw new InvalidProgramException(e);
         }
 
