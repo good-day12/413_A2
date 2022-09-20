@@ -65,7 +65,8 @@ public class FalseBranchCode extends ByteCode{
         System.out.println("FALSEBRANCH ");
     }
 
-    public void setAddressOfLabel(String s1){ addressOfLabel = Integer.parseInt(s1); }
+    public void setAddressOfLabel(int address){ addressOfLabel = address; }
+    public String getLabel(){ return initialLabel; }
 
 
 }

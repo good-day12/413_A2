@@ -37,7 +37,9 @@ public class LitCode extends ByteCode{
 
     public void init(ArrayList<String> stringArray){
         value = Integer.parseInt(stringArray.get(0));
-        id = stringArray.get(1);
+        if (stringArray.size() > 1) {
+            id = stringArray.get(1);
+        }
     }
 
     @Override

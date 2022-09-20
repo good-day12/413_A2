@@ -43,6 +43,7 @@ import java.util.ArrayList;
 public class CallCode extends ByteCode{
 
     private String label;
+    private int address;
 
     @Override
     public void init(ArrayList<String> stringArray) {
@@ -57,5 +58,21 @@ public class CallCode extends ByteCode{
     @Override
     public void dump() {
 
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public int getAddress() {
+        return address;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
     }
 }

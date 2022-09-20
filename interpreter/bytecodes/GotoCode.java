@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class GotoCode extends ByteCode{
 
     private String label;
+    private int address;
 
     @Override
     public void init(ArrayList<String> stringArray) {
@@ -46,4 +47,10 @@ public class GotoCode extends ByteCode{
     public void dump() {
         System.out.println("GOTO ");
     }
+
+    public void setAddress(int a){ address = a; }
+
+    public int getAddress() { return address; }
+
+    public String getLabel(){ return label; }
 }

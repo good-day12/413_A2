@@ -47,7 +47,9 @@ public class LoadCode extends ByteCode{
 
     public void init(ArrayList<String> stringArray){
         offset = Integer.parseInt(stringArray.get(0));
-        id = stringArray.get(1);
+        if(stringArray.size() > 1) { //check if we have a second argument
+            id = stringArray.get(1);
+        }
     }
 
     @Override

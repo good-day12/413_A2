@@ -91,32 +91,71 @@ public class Program {
         ByteCode label = new LabelCode();
         ByteCode call = new CallCode();
 
+        //create Integer array to keep track of indexes
+        ArrayList<Integer> falseBranchIndexes = new ArrayList<>();
+        ArrayList<Integer> goToIndexes = new ArrayList<>();
+        ArrayList<Integer> labelIndexes = new ArrayList<>();
+        ArrayList<Integer> callIndexes = new ArrayList<>();
+
         //use an array to keep track of indexes where you find them, no nested loops
 
         //downcast this.getCode(i) to (FalseBranchCode) or whatever we need
         //then use labelcode's return address function to get label
 
         for (int i = 0; i < program.size(); i++){
-            //if we find a falseBranch
+//fill our respective lists with index occurrences of each type
             if (this.getCode(i).getClass().equals(falseBranch.getClass())){
-                for (int j = 0; j < program.size(); j++){//nested loop to find where label of falseBranch goes to
-                    if (this.getCode(j).getClass().equals(label.getClass())){
-                        //if it equals label we need to check if our falseBranch label
-                        // is the same label as the label ByteCode
-//                        if (){
-//if not an abstract function how to access label parameter?
-                        //should I add an abstract function to access the first argument?
-                        //or recall the init function with the correctly updated arguments?
-//                        }
-                    }
-                }
-            //if we find a goTo
-            } else if(this.getCode(i).getClass().equals(goTo.getClass())){
-
-            }else if(this.getCode(i).getClass().equals(call.getClass())){
-
+                falseBranchIndexes.add(i);
+            } else if (this.getCode(i).getClass().equals(goTo.getClass())){
+                goToIndexes.add(i);
+            } else if (this.getCode(i).getClass().equals(label.getClass())){
+                labelIndexes.add(i);
+            } else if (this.getCode(i).getClass().equals(call.getClass())){
+                callIndexes.add(i);
             }
 
+        }
+
+        //now our indexes arrays are full with corresponding index for each entry
+        LabelCode tempLabel;
+        //handle falseBranch code bytes
+        for (int i = 0; i < falseBranchIndexes.size(); i++){
+            //cast our falseBranch CodeByte from the program to temp variable
+            FalseBranchCode temp = (FalseBranchCode) this.getCode(falseBranchIndexes.get(i));
+            for (int j = 0; j < labelIndexes.size(); j++){
+                //cast our labelCode to compare with
+                tempLabel = (LabelCode) this.getCode(labelIndexes.get(j));
+                if (temp.getLabel().equals(tempLabel.getLabel())){
+                    temp.setAddressOfLabel(labelIndexes.get(j));
+                    labelIndexes.remove(j);
+                }
+            }
+        }
+        //handle goTo code bytes
+        for (int i = 0; i < goToIndexes.size(); i++){
+            //cast our falseBranch CodeByte from the program to temp variable
+            GotoCode temp = (GotoCode) this.getCode(goToIndexes.get(i));
+            for (int j = 0; j < labelIndexes.size(); j++){
+                //cast our labelCode to compare with
+                tempLabel = (LabelCode) this.getCode(labelIndexes.get(j));
+                if (temp.getLabel().equals(tempLabel.getLabel())){
+                    temp.setAddress(labelIndexes.get(j));
+                    labelIndexes.remove(j); //idk why this is suspicious
+                }
+            }
+        }
+        //handle Call code bytes
+        for (int i = 0; i < callIndexes.size(); i++){
+            //cast our falseBranch CodeByte from the program to temp variable
+            CallCode temp = (CallCode) this.getCode(callIndexes.get(i));
+            for (int j = 0; j < labelIndexes.size(); j++){
+                //cast our labelCode to compare with
+                tempLabel = (LabelCode) this.getCode(labelIndexes.get(j));
+                if (temp.getLabel().equals(tempLabel.getLabel())){
+                    temp.setAddress(labelIndexes.get(j));
+                    labelIndexes.remove(j);
+                }
+            }
         }
     }
 
