@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * Each ByteCode SHOULD implement a method to support dumping of the bytecode
  *
@@ -11,7 +13,7 @@ import interpreter.virtualmachine.VirtualMachine;
 public abstract class ByteCode {
 
 
-    public abstract void init(String s1, String s2); //do an array type strings
+    public abstract void init(ArrayList<String> stringArray); //do an array type strings
 
     public abstract void execute(VirtualMachine vm);
 

@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.10 Return ByteCode
  * The Return ByteCode will be used to return from functions but also to put return values in the correct position on
@@ -41,7 +43,7 @@ import interpreter.virtualmachine.VirtualMachine;
 public class ReturnCode extends ByteCode{
 
     @Override
-    public void init(String s1, String s2) {
+    public void init(ArrayList<String> stringArray) {
 
     }
 

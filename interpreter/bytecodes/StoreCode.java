@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.5 Store ByteCode
  * The Store ByteCode will be used to move values from the top of the run time stack to an offset in the current frame.
@@ -38,7 +40,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 public class StoreCode extends ByteCode {
     @Override
-    public void init(String s1, String s2) {
+    public void init(ArrayList<String> stringArray) {
 
     }
 

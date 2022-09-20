@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.15 Dump ByteCode
  * The Dump ByteCode is used to turn dumping ON and OFF. Dumping in the interpreter project is only done when dumping is
@@ -23,8 +25,8 @@ public class DumpCode extends ByteCode{
     private boolean dumpFlag;
 
     @Override
-    public void init(String s1, String s2) {
-        if (s1.equals("ON")){
+    public void init(ArrayList<String> stringArray) {
+        if (stringArray.get(0).equals("ON")){
             dumpFlag = true;
         } else{
             dumpFlag = false;

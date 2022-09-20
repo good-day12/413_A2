@@ -42,29 +42,17 @@ public final class ByteCodeLoader {
                 expressionTokenizer = new StringTokenizer(line, delimiter);//tokenize line read
                 expressionToken = expressionTokenizer.nextToken();//store next token (our class name)
                 String  className = CodeTable.getClassName(expressionToken);//use class name to create instance of class
+                Class<?> c = Class.forName("interpreter.bytecodes."+ className); //create class with this name
+                ByteCode bc = (ByteCode) c.getDeclaredConstructor().newInstance();//create bytecode out of this class
 
-                Class<?> c = Class.forName("interpreter.bytecodes."+ className);//why does IntelliJ want Class<?>
-                ByteCode bc = (ByteCode) c.getDeclaredConstructor().newInstance();
-
+                //use this array to store our arguments, will pass this to init function
                 ArrayList<String> tokens = new ArrayList<>(); //to hold our arguments passed as tokens
-
-                int argCounter = 0; //keep track of how many arguments we have
                 while(expressionTokenizer.hasMoreTokens()){
-                    argCounter++; //count how many arguments we have
                     tokens.add(expressionTokenizer.nextToken());
-
-                    /**
-                     * Use Array of strings to store arguments
-                     */
                 }
-                if (argCounter == 1){//if there is only one argument, pass it, second will be empty
-                    bc.init(tokens.get(0), "");
-                }
-                else if (argCounter == 2){ //if two, pass it with both arguments
-                    bc.init(tokens.get(0), tokens.get(1));
-                }
-                program.addByteCode(bc);
-            } //so when we load our program with BCL they will all have arguments already?
+                bc.init(tokens); //initialize our ByteCode with the tokens arrayList of strings
+                program.addByteCode(bc); //add the initialized byteCode to our program
+            }
 
 //catch errors thrown by getDeclaredConstructor and file not found error from scanner
         } catch (FileNotFoundException | ClassNotFoundException | InvocationTargetException | InstantiationException |

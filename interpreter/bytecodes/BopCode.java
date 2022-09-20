@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.11 Bop ByteCode
  * The Bop ByteCode is used to implement binary operations for the Interpreter Project. The Bop ByteCode will need to
@@ -41,8 +43,8 @@ public class BopCode extends ByteCode{
     private String operator;
 
     @Override
-    public void init(String s1, String s2) {
-        operator = s1;
+    public void init(ArrayList<String> stringArray) {
+        operator = stringArray.get(0);
     }
 
     @Override

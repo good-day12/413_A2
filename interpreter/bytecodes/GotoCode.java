@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.4 Goto ByteCode
  * The Goto ByteCode is used to jump to Labels in our programs. Goto is considered an unconditional jump. This means
@@ -29,8 +31,8 @@ public class GotoCode extends ByteCode{
     private String label;
 
     @Override
-    public void init(String s1, String s2) {
-        label = s1;
+    public void init(ArrayList<String> stringArray) {
+        label = stringArray.get(0);
     }
 
     @Override

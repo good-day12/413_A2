@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.3 FalseBranch ByteCode
  * The FalseBranch ByteCode will be used to execute conditional jumps( think of executing control structures like
@@ -38,11 +40,8 @@ public class FalseBranchCode extends ByteCode{
     private int addressOfLabel;
 
     @Override
-    public void init(String s1, String s2) {
-        initialLabel = s1;
-        if(!s2.equals("")) { //if second argument is not an empty string
-            addressOfLabel = Integer.parseInt(s2);
-        }
+    public void init(ArrayList<String> stringArray) {
+        initialLabel = stringArray.get(0);
     }
 
     @Override

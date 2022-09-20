@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * The Pop ByteCode will be used to remove values from the run time stack. The Pop ByteCode
  * is not allowed to remove values across frame boundaries. It is the implementers responsibility
@@ -25,8 +27,8 @@ public class PopCode extends ByteCode{
     private int popNum;
 
     @Override
-    public void init(String s1, String s2) {
-        popNum = Integer.parseInt(s1);
+    public void init(ArrayList<String> stringArray) {
+        popNum = Integer.parseInt(stringArray.get(0));
     }
 
     @Override

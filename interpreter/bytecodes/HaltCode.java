@@ -2,13 +2,15 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 
 /**
  * TODO: implement logic
  */
 public class HaltCode extends ByteCode{
     @Override
-    public void init(String s1, String s2) {
+    public void init(ArrayList<String> stringArray) {
 
     }
 

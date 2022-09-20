@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.6 Load ByteCode
  * The Load ByteCode will be used to move values from an offset in the current frame to the top of the stack. This
@@ -43,9 +45,9 @@ public class LoadCode extends ByteCode{
     private int offset;
     private String id;
 
-    public void init(String v, String name){
-        offset = Integer.parseInt(v);
-        id = name;
+    public void init(ArrayList<String> stringArray){
+        offset = Integer.parseInt(stringArray.get(0));
+        id = stringArray.get(1);
     }
 
     @Override

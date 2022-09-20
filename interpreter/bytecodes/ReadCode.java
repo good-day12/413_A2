@@ -2,6 +2,7 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ import java.util.Scanner;
 public class ReadCode extends ByteCode{
 
     @Override
-    public void init(String s1, String s2) {
+    public void init(ArrayList<String> stringArray) {
 
     }
 

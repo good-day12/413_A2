@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.7 Lit ByteCode
  * The Lit ByteCode is used to push literal values to the runtime stack. In some cases, Lit ByteCodes will be
@@ -33,9 +35,9 @@ public class LitCode extends ByteCode{
     private int value;
     private String id;
 
-    public void init(String v, String name){
-        value = Integer.parseInt(v);
-        id = name;
+    public void init(ArrayList<String> stringArray){
+        value = Integer.parseInt(stringArray.get(0));
+        id = stringArray.get(1);
     }
 
     @Override

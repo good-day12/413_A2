@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.8 Args ByteCode
  * The Args ByteCode is going to be used to setup how many arguments a function has. The Args ByteCode will always be
@@ -31,8 +33,8 @@ public class ArgsCode extends ByteCode{
     private int argsNum;
 
     @Override
-    public void init(String s1, String s2) {
-        argsNum = Integer.parseInt(s1);
+    public void init(ArrayList<String> stringArray) {
+        argsNum = Integer.parseInt(stringArray.get(0));
     }
 
     @Override

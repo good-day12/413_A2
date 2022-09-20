@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.13 Write ByteCode
  * The Write ByteCode is used to display information to the console. The only thing Write is allowed to display is the
@@ -24,7 +26,7 @@ import interpreter.virtualmachine.VirtualMachine;
 
 public class WriteCode extends ByteCode{
     @Override
-    public void init(String s1, String s2) {
+    public void init(ArrayList<String> stringArray) {
 
     }
 

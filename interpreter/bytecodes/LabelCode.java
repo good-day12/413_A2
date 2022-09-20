@@ -2,6 +2,8 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.ArrayList;
+
 /**
  * 3.14 Label ByteCode
  * The Label bytecode is a bytecode that has no functionality. Its sole purpose is to mark locations in the program
@@ -26,8 +28,8 @@ public class LabelCode extends ByteCode{
     private String label;
 
     @Override
-    public void init(String s1, String s2) {
-        label = s1;
+    public void init(ArrayList<String> stringArray) {
+        label = stringArray.get(0);
     }
 
     @Override
