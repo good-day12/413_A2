@@ -29,6 +29,12 @@ import java.util.Scanner;
  */
 
 public class ReadCode extends ByteCode{
+
+    @Override
+    public void init(String s1, String s2) {
+
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
         int value;

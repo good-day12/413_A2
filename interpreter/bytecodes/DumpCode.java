@@ -22,8 +22,9 @@ public class DumpCode extends ByteCode{
 
     private boolean dumpFlag;
 
-    public void init(String DFStatus){
-        if (DFStatus == "ON"){
+    @Override
+    public void init(String s1, String s2) {
+        if (s1.equals("ON")){
             dumpFlag = true;
         } else{
             dumpFlag = false;

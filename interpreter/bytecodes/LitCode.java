@@ -33,10 +33,6 @@ public class LitCode extends ByteCode{
     private int value;
     private String id;
 
-    public void init(String v){
-        value = Integer.parseInt(v);
-    }
-
     public void init(String v, String name){
         value = Integer.parseInt(v);
         id = name;

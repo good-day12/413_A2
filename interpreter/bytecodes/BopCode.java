@@ -40,8 +40,9 @@ import interpreter.virtualmachine.VirtualMachine;
 public class BopCode extends ByteCode{
     private String operator;
 
-    public void init(String op){
-        operator = op;
+    @Override
+    public void init(String s1, String s2) {
+        operator = s1;
     }
 
     @Override

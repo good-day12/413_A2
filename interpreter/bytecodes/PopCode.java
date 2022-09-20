@@ -24,8 +24,9 @@ import interpreter.virtualmachine.VirtualMachine;
 public class PopCode extends ByteCode{
     private int popNum;
 
-    public void init(String pn){
-        popNum = Integer.parseInt(pn);
+    @Override
+    public void init(String s1, String s2) {
+        popNum = Integer.parseInt(s1);
     }
 
     @Override

@@ -30,8 +30,9 @@ public class ArgsCode extends ByteCode{
 
     private int argsNum;
 
-    public void init(String arg){
-        argsNum = Integer.parseInt(arg);
+    @Override
+    public void init(String s1, String s2) {
+        argsNum = Integer.parseInt(s1);
     }
 
     @Override

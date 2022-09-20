@@ -8,6 +8,11 @@ import interpreter.virtualmachine.VirtualMachine;
  */
 public class HaltCode extends ByteCode{
     @Override
+    public void init(String s1, String s2) {
+
+    }
+
+    @Override
     public void execute(VirtualMachine vm) {
         vm.haltCode();
     }

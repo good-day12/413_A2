@@ -42,8 +42,9 @@ public class CallCode extends ByteCode{
 
     private String label;
 
-    public void init(String l){
-        label = l;
+    @Override
+    public void init(String s1, String s2) {
+        label = s1;
     }
 
     @Override

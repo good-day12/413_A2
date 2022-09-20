@@ -10,6 +10,8 @@ import interpreter.virtualmachine.VirtualMachine;
 
 public abstract class ByteCode {
 
+    public abstract void init(String s1, String s2);
+
     public abstract void execute(VirtualMachine vm);
 
     public abstract void dump();
