@@ -10,9 +10,10 @@ import interpreter.virtualmachine.VirtualMachine;
 
 public abstract class ByteCode {
 
-public abstract void execute(VirtualMachine vm);
+    public abstract void execute(VirtualMachine vm);
 
-public abstract void dump();
+    public abstract void dump();
 
 
 }
+

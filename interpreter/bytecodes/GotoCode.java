@@ -25,9 +25,16 @@ import interpreter.virtualmachine.VirtualMachine;
  * TODO: implement logic
  */
 public class GotoCode extends ByteCode{
+
+    private String label;
+
+    public void init(String l){
+        label = l;
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
-        vm.popCode(); // should be our label?
+        vm.pop(); // should be our label?
 
         //do we create a function in VM to change our program counter???
     }

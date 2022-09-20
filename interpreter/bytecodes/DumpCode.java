@@ -19,8 +19,22 @@ import interpreter.virtualmachine.VirtualMachine;
  */
 
 public class DumpCode extends ByteCode{
+
+    private boolean dumpFlag;
+
+    public void init(String DFStatus){
+        if (DFStatus == "ON"){
+            dumpFlag = true;
+        } else{
+            dumpFlag = false;
+        }
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
+        if (dumpFlag){
+            //run vm.dump function
+        }
 
     }
 

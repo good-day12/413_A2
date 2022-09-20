@@ -34,10 +34,16 @@ import interpreter.virtualmachine.VirtualMachine;
  * TODO: implement logic
  */
 public class FalseBranchCode extends ByteCode{
+    private String label;
+
+    public void init(String l) {
+        label = l;
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
         //if top of stack is 0 we will jump to label
-        if (vm.popCode() == 0){
+        if (vm.pop() == 0){
             //label will be our first argument
 
             //logic for going to address somehow?

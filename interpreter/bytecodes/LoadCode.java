@@ -39,6 +39,19 @@ import interpreter.virtualmachine.VirtualMachine;
  */
 
 public class LoadCode extends ByteCode{
+
+    private int offset;
+    private String id;
+
+    public void init(String v){
+        offset = Integer.parseInt(v);
+    }
+
+    public void init(String v, String name){
+        offset = Integer.parseInt(v);
+        id = name;
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
 

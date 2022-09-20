@@ -24,11 +24,14 @@ import interpreter.virtualmachine.VirtualMachine;
 public class PopCode extends ByteCode{
     private int popNum;
 
+    public void init(String pn){
+        popNum = Integer.parseInt(pn);
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
-        popNum = vm.popCode();
         for (int i = 0; i <= popNum; i++){
-            vm.popCode();
+            vm.pop();
         }
     }
 

@@ -39,6 +39,13 @@ import interpreter.virtualmachine.VirtualMachine;
  * TODO: implement logic
  */
 public class CallCode extends ByteCode{
+
+    private String label;
+
+    public void init(String l){
+        label = l;
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
 

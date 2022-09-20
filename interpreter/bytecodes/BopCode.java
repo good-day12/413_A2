@@ -18,7 +18,7 @@ import interpreter.virtualmachine.VirtualMachine;
  * | Division
  * | Equality
  * | Less-Than Equal
- * | Greater-Than Equal : >= | Greater-Than : > | | Logical And :& | Logical-OR :|| +--------------------------+---------------------+
+ * | Greater-Than Equal : >= | Greater-Than : > | | Logical And :& | Logical-OR :||
  * :+ :/ : == : <=
  * • If dump is on, the Bop ByteCode is requried to be dumped.
  * • The Bop bytecode cannot detect when it should be dumped nor should it call dump
@@ -35,7 +35,15 @@ import interpreter.virtualmachine.VirtualMachine;
  */
 //why wouldn't it be three arguments? one for the operator?
 
+    //I think when we initialize these byteCodes they will all have the arguments filled
+
 public class BopCode extends ByteCode{
+    private String operator;
+
+    public void init(String op){
+        operator = op;
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
 

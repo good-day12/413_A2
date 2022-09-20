@@ -14,7 +14,7 @@ public class Program {
      * ArrayList
      */
     public Program() {
-
+        program = new ArrayList<>();
     }
 
     /**
@@ -22,7 +22,7 @@ public class Program {
      * @return size of program
      */
     public int getSize() {
-        return 0;
+        return program.size();
     }
 
     /**
@@ -31,7 +31,7 @@ public class Program {
      * @return a bytecode.
      */
     public ByteCode getCode(int programCounter) {
-        return null;
+        return program.get(programCounter);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Program {
      * @param c bytecode to be added
      */
     public void addByteCode(ByteCode c) {
-
+        program.add(c);
     }
 
     /**
@@ -48,6 +48,39 @@ public class Program {
      * can only jump to Label codes that have a matching label value.
      * HINT: make note what type of data-structure ByteCodes are stored in.
      * **** METHOD SIGNATURE CANNOT BE CHANGED *****
+     */
+
+    /**
+     * Resolving symbolic addresses can be done in many ways. It is up to you to design a clean
+     * implementation for mapping the generated labels the compiler uses to absolute addresses in
+     * the program. An example is given below.
+     * The Program class will hold the ByteCode program loaded from the file. It will also resolve
+     * symbolic addresses in the program. For example, if we have the following program below
+     * 0. FALSEBRANCH continue<<6>>
+     * 1. LIT 2
+     * 2. LIT 2
+     * 3. BOP ==
+     * 4. FALSEBRANCH continue<<9>>
+     * 5. LIT 1
+     * 6. ARGS 1
+     * 7. CALL Write
+     * 8. STORE O i
+     * 9. LABEL continue<<9>>
+     * 10. LABEL continue<<6>>
+     * After address resolution has been completed the source code should look like the following
+     * (NOTE you should not modify the original source code file, these changes are made to the
+     * Program object):
+     * 0. FALSEBRANCH 10
+     * 1. LIT 2
+     * 2. LIT 2
+     * 3. BOP ==
+     * 4. FALSEBRANCH 9
+     * 5. LIT 1
+     * 6. ARGS 1
+     * 7. CALL Write
+     * 8. STORE O i
+     * 9. LABEL continue<<9>>
+     * 10. LABEL continue<<6>>
      */
     public void resolveAddress() {
 

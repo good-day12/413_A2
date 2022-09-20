@@ -27,6 +27,13 @@ import interpreter.virtualmachine.VirtualMachine;
  */
 
 public class ArgsCode extends ByteCode{
+
+    private int argsNum;
+
+    public void init(String arg){
+        argsNum = Integer.parseInt(arg);
+    }
+
     @Override
     public void execute(VirtualMachine vm) {
 

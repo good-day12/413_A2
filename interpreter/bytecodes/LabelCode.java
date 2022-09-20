@@ -24,13 +24,16 @@ import interpreter.virtualmachine.VirtualMachine;
  * Or should I do it in the Stack<Integer> returnAddress;
  */
 public class LabelCode extends ByteCode{
+
+    private String label;
+
+    public void inti(String l){
+        label = l;
+    }
+
     @Override
-    /**
-     * Let's get the address (where the program counter is currently at)
-     * Store that address into stack for future use
-     */
     public void execute(VirtualMachine vm) {
-        vm.setAddress();
+
     }
 
     @Override

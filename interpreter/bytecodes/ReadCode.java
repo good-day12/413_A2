@@ -2,6 +2,9 @@ package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * 3.12 Read ByteCode
  * The Read ByteCode is used to read user input from the keyboard. Only integers should be accepted from users. You may
@@ -28,7 +31,19 @@ import interpreter.virtualmachine.VirtualMachine;
 public class ReadCode extends ByteCode{
     @Override
     public void execute(VirtualMachine vm) {
-
+        int value;
+        Scanner s = new Scanner(System.in);
+        while(true) {
+            try {
+                System.out.println("Please enter an integer : ");
+                value = s.nextInt();
+                break; //if we get a valid integer exit while loop
+            } catch (InputMismatchException ex) {
+                System.out.println("Invalid, please enter an integer : ");
+                s.nextLine(); //if we catch an exception continue with while loop
+            }
+        }
+        vm.pushValue(value);
     }
 
     @Override

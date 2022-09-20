@@ -35,13 +35,17 @@ public class VirtualMachine {
      * Create a method to halt program if HaltCode is found?
      */
 
-    public int popCode(){
+    public int pop(){
         try {
             return runTimeStack.pop();
         } catch (RuntimeStackIllegalAccess e) {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public void pushValue (int value){
+        runTimeStack.push(value);
     }
 
     public void haltCode(){
@@ -51,12 +55,14 @@ public class VirtualMachine {
         isRunning = false;
     }
 
-    public int getAddress(){
-        return returnAddress.pop();
+    public int peek(){
+        try {
+            return runTimeStack.peek();
+        } catch (RuntimeStackIllegalAccess e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
-    public void setAddress(){
-        returnAddress.push(programCounter);
-    }
 
 }
