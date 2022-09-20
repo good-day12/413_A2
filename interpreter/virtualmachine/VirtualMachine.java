@@ -48,7 +48,15 @@ public class VirtualMachine {
         /**
          * TODO: add checks before closing program
          */
-        System.exit(2);
+        isRunning = false;
+    }
+
+    public int getAddress(){
+        return returnAddress.pop();
+    }
+
+    public void setAddress(){
+        returnAddress.push(programCounter);
     }
 
 }
