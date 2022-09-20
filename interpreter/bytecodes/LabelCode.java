@@ -41,4 +41,6 @@ public class LabelCode extends ByteCode{
     public void dump() {
 
     }
+
+    public boolean equalsLabel (String s1){ return s1.equals(label); }
 }

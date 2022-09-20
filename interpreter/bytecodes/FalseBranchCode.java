@@ -34,11 +34,15 @@ import interpreter.virtualmachine.VirtualMachine;
  * TODO: implement logic
  */
 public class FalseBranchCode extends ByteCode{
-    private String label;
+    private String initialLabel;
+    private int addressOfLabel;
 
     @Override
     public void init(String s1, String s2) {
-        label = s1;
+        initialLabel = s1;
+        if(!s2.equals("")) { //if second argument is not an empty string
+            addressOfLabel = Integer.parseInt(s2);
+        }
     }
 
     @Override
@@ -61,4 +65,8 @@ public class FalseBranchCode extends ByteCode{
     public void dump() {
         System.out.println("FALSEBRANCH ");
     }
+
+    public void setAddressOfLabel(String s1){ addressOfLabel = Integer.parseInt(s1); }
+
+
 }
