@@ -3,10 +3,7 @@ package interpreter.virtualmachine;
 import java.util.ArrayList;
 import java.util.List;
 
-import interpreter.bytecodes.ByteCode;
-import interpreter.bytecodes.FalseBranchCode;
-import interpreter.bytecodes.GotoCode;
-import interpreter.bytecodes.LabelCode;
+import interpreter.bytecodes.*;
 
 public class Program {
 
@@ -86,25 +83,37 @@ public class Program {
      * 10. LABEL continue<<6>>
      */
     public void resolveAddress() {
-        //switch statement to go through file if we encounter a falseBranch, call, goto, etc.
-        //don't need one for label, will only look for lable after we find a falsebranch or goto
+        //use if/else to go through file if we encounter a falseBranch, call, goto, etc.
+        //don't need one for label, will only look for label after we find a falsebranch or goto
         //create ByteCodes to compare with
         ByteCode falseBranch = new FalseBranchCode();
         ByteCode goTo = new GotoCode();
         ByteCode label = new LabelCode();
+        ByteCode call = new CallCode();
+
+        //use an array to keep track of indexes where you find them, no nested loops
+
+        //downcast this.getCode(i) to (FalseBranchCode) or whatever we need
+        //then use labelcode's return address function to get label
 
         for (int i = 0; i < program.size(); i++){
             //if we find a falseBranch
             if (this.getCode(i).getClass().equals(falseBranch.getClass())){
                 for (int j = 0; j < program.size(); j++){//nested loop to find where label of falseBranch goes to
                     if (this.getCode(j).getClass().equals(label.getClass())){
-                        //if it equals label we need to check if it is the same label in our falseBranch
+                        //if it equals label we need to check if our falseBranch label
+                        // is the same label as the label ByteCode
 //                        if (){
-//
+//if not an abstract function how to access label parameter?
+                        //should I add an abstract function to access the first argument?
+                        //or recall the init function with the correctly updated arguments?
 //                        }
                     }
                 }
+            //if we find a goTo
             } else if(this.getCode(i).getClass().equals(goTo.getClass())){
+
+            }else if(this.getCode(i).getClass().equals(call.getClass())){
 
             }
 

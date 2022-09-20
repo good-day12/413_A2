@@ -36,17 +36,14 @@ public final class ByteCodeLoader {
         CodeTable.init();
 
         try {
-
-
-
             Scanner s = new Scanner(new File(codSourceFileName));
-
             while (s.hasNextLine()){
                 String line = s.nextLine();//variable to hold line read from file
                 expressionTokenizer = new StringTokenizer(line, delimiter);//tokenize line read
                 expressionToken = expressionTokenizer.nextToken();//store next token (our class name)
                 String  className = CodeTable.getClassName(expressionToken);//use class name to create instance of class
-                Class c = Class.forName("interpreter.bytecodes."+ className);//why does IntelliJ want Class<?>
+
+                Class<?> c = Class.forName("interpreter.bytecodes."+ className);//why does IntelliJ want Class<?>
                 ByteCode bc = (ByteCode) c.getDeclaredConstructor().newInstance();
 
                 ArrayList<String> tokens = new ArrayList<>(); //to hold our arguments passed as tokens
@@ -55,6 +52,10 @@ public final class ByteCodeLoader {
                 while(expressionTokenizer.hasMoreTokens()){
                     argCounter++; //count how many arguments we have
                     tokens.add(expressionTokenizer.nextToken());
+
+                    /**
+                     * Use Array of strings to store arguments
+                     */
                 }
                 if (argCounter == 1){//if there is only one argument, pass it, second will be empty
                     bc.init(tokens.get(0), "");
@@ -63,7 +64,7 @@ public final class ByteCodeLoader {
                     bc.init(tokens.get(0), tokens.get(1));
                 }
                 program.addByteCode(bc);
-            }
+            } //so when we load our program with BCL they will all have arguments already?
 
 //catch errors thrown by getDeclaredConstructor and file not found error from scanner
         } catch (FileNotFoundException | ClassNotFoundException | InvocationTargetException | InstantiationException |

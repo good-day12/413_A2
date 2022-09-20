@@ -20,8 +20,6 @@ import interpreter.virtualmachine.VirtualMachine;
 
 /**
  * TODO: implement logic
- * Should I put the label into the Bytecode list in the program?
- * Or should I do it in the Stack<Integer> returnAddress;
  */
 public class LabelCode extends ByteCode{
 
