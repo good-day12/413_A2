@@ -22,7 +22,9 @@ public class VirtualMachine {
 
     public void executeProgram(){
         isRunning = true;
-
+        /**
+         * Need to add dumping implementation
+         */
         while (isRunning){ //add check for dump in loop
             ByteCode code = program.getCode(programCounter);
             code.execute(this);
@@ -35,6 +37,17 @@ public class VirtualMachine {
      * Create a method to halt program if HaltCode is found?
      */
 
+    public void haltCode(){
+        /**
+         * TODO: add checks before closing program
+         */
+        isRunning = false;
+    }
+
+    public void setDumpFlag(){
+
+    }
+
     public int pop(){
         try {
             return runTimeStack.pop();
@@ -46,13 +59,6 @@ public class VirtualMachine {
 
     public void pushValue (int value){
         runTimeStack.push(value);
-    }
-
-    public void haltCode(){
-        /**
-         * TODO: add checks before closing program
-         */
-        isRunning = false;
     }
 
     public int peek(){

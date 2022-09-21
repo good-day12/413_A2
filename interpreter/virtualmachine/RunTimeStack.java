@@ -1,6 +1,7 @@
 package interpreter.virtualmachine;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
@@ -16,22 +17,19 @@ class RunTimeStack {
 
     private int index; //keep track of our runTimeStack index
 
+    int lastIndex(){
+        return Math.max(0, this.runTimeStack.size() - 1);
+    }
+
     public RunTimeStack() {
         runTimeStack = new ArrayList<>();
         framePointer = new Stack<>();
+        index = 0;
         // Add initial Frame Pointer, main is the entry
         // point of our language, so its frame pointer is 0. should never be empty
         framePointer.add(0); //so the frame pointer holds the value of the runTimeStack that we are currently
                                 //working with? like if a function is called we would use the framePointer to
                                 //store
-    }
-    /**
-     * Used for dumping the current state of the runTimeStack. It will print portions of the stack based on respective
-     * frame markers.
-     * Example [1,2,3] [4,5,6] [7,8]
-     * Frame pointers would be 0, 3, 6 */
-    public String dump(){
-        return "";
     }
 
     /**
@@ -40,14 +38,10 @@ class RunTimeStack {
      * @throws RuntimeStackIllegalAccess if peeking an empty stack.
      */
     public int peek() throws RuntimeStackIllegalAccess {
-
-        //I think these should take into account where we are at within the frame pointer
-        try{
-            //index-framePointer.peek() to account for our current frame
-            return runTimeStack.get(index);
-        } catch (NullPointerException ex){
-            throw new RuntimeStackIllegalAccess(ex);
+        if(this.runTimeStack.isEmpty()){
+            throw new RuntimeStackIllegalAccess(new EmptyStackException());
         }
+        return this.runTimeStack.get(lastIndex());
     }
 
     /**
@@ -69,14 +63,12 @@ class RunTimeStack {
     public int pop() throws RuntimeStackIllegalAccess {
         try{
             //make sure we don't try to access anything outside our current frame, check if it is empty
-            if(index >= framePointer.peek() && !runTimeStack.isEmpty() ) {
-                int temp = runTimeStack.get(index - 1); //minus one to account for off by one error
-                index--;
-                return temp;
-            } else{
-                throw new NullPointerException();
-            }
-        } catch (NullPointerException ex){
+//            if(index >= framePointer.peek() && !runTimeStack.isEmpty() ) {
+                return this.runTimeStack.remove(lastIndex());
+//            } else{
+//                throw new EmptyStackException();
+//            }
+        } catch (IndexOutOfBoundsException ex){
             throw new RuntimeStackIllegalAccess(ex);
         }
     }
@@ -148,4 +140,26 @@ class RunTimeStack {
         index = framePointer.pop() + 1; //account for off by one error.
     }
 
+    /**
+     * Used for dumping the current state of the runTimeStack. It will print portions of the stack based on respective
+     * frame markers.
+     * Example [1,2,3] [4,5,6] [7,8]
+     * Frame pointers would be 0, 3, 6 */
+    public String dump(){
+        return "";
+    }
+
+    /**
+     * How to test this class
+     */
+
+/*
+Use this to test the runTimeStack
+ */
+    public static void main(String[] args) {
+        RunTimeStack x = new RunTimeStack();
+        x.push(1);
+        x.push(2);
+        x.runTimeStack.forEach(v -> System.out.println(v));
+    }
 }
