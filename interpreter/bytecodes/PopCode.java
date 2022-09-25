@@ -33,7 +33,7 @@ public class PopCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-        for (int i = 0; i <= popNum; i++){
+        for (int i = 0; i < popNum; i++){
             vm.pop();
         }
     }

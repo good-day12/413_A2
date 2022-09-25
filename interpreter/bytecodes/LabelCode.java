@@ -39,7 +39,7 @@ public class LabelCode extends ByteCode{
 
     @Override
     public void dump() {
-
+        System.out.println("LABEL " + label);
     }
 
     public String getLabel (){ return label; }

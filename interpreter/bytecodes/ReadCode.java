@@ -40,6 +40,7 @@ public class ReadCode extends ByteCode{
     public void execute(VirtualMachine vm) {
         int value;
         Scanner s = new Scanner(System.in);
+        //while loop for input validation
         while(true) {
             try {
                 System.out.println("Please enter an integer : ");

@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class LitCode extends ByteCode{
 
     private int value;
-    private String id;
+    private String id = "";
 
     public void init(ArrayList<String> stringArray){
         value = Integer.parseInt(stringArray.get(0));
@@ -49,6 +49,10 @@ public class LitCode extends ByteCode{
 
     @Override
     public void dump() {
-
+        if (id.equals("")) {
+            System.out.println("LIT " + value);
+        } else {
+            System.out.println("LIT " + id + " int" + value);
+        }
     }
 }

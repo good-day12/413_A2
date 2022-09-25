@@ -64,7 +64,7 @@ public class VirtualMachine {
     public int peek(){
         try {
             return runTimeStack.peek();
-        } catch (RuntimeStackIllegalAccess e) {
+        } catch (RuntimeStackIllegalAccess e) { //what should I do in the catch statement?
             e.printStackTrace();
         }
         return -1;
@@ -76,6 +76,14 @@ public class VirtualMachine {
      */
     public void newFrame(int args){
         this.runTimeStack.newFrameAt(args);
+    }
+
+    public void load(int args){
+        try {
+            runTimeStack.load(args);
+        } catch (RuntimeStackIllegalAccess e) {
+            e.printStackTrace();
+        }
     }
 
     public void haltCode(){

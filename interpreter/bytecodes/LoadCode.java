@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * • The Load ByteCode can have 1 to 2 arguments.
  * – one argument is the offset in the current frame where the value is to be copied
  * from.
- * – The second argument, if present, is the identifier (variable) the value belongs to. This we be used for dumping.
+ * – The second argument, if present, is the identifier (variable) the value belongs to. This will be used for dumping.
  * • Load must copy the value at the offset in the current and push it to the top of the stack.
  * • Load must not remove any values from the runtime stack.
  * • Load cannot operate across frame boundaries.
@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class LoadCode extends ByteCode{
 
     private int offset;
-    private String id;
+    private String id = "";
 
     public void init(ArrayList<String> stringArray){
         offset = Integer.parseInt(stringArray.get(0));
@@ -54,11 +54,15 @@ public class LoadCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-
+        vm.load(offset);
     }
 
     @Override
     public void dump() {
-
+        if (id.equals("")){
+            System.out.println("LOAD " + offset);
+        } else{
+            System.out.println("LOAD " + offset + " " + id);
+        }
     }
 }
