@@ -39,11 +39,11 @@ public class ArgsCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-
+        vm.newFrame(argsNum); //use helper function to create new frames
     }
 
     @Override
     public void dump() {
-
+        System.out.println("ARGS " + argsNum);
     }
 }

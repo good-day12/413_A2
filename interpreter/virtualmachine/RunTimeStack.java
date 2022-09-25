@@ -156,19 +156,21 @@ Use this to test the runTimeStack
         x.push(1);
         x.push(2);
         x.push(3);
-        x.push(4);
-        x.push(5);
-        x.push(6);
 
-
-        //create new Frame
-        x.newFrameAt(2); //create two arguments to load into "function"
-
-        x.push(7); //act like our function is pushing these to the runtime stack
-        x.push(8);
-        x.push(9);  //lets say nine is the return value we want and we want to exit function now
-
-        x.load(2);
+        x.push(x.pop() + x.pop());
+//        x.push(4);
+//        x.push(5);
+//        x.push(6);
+//
+//
+//        //create new Frame
+//        x.newFrameAt(2); //create two arguments to load into "function"
+//
+//        x.push(7); //act like our function is pushing these to the runtime stack
+//        x.push(8);
+//        x.push(9);  //lets say nine is the return value we want and we want to exit function now
+//
+//        x.load(2);
 //        x.store(0);
 //        x.popFrame();
 

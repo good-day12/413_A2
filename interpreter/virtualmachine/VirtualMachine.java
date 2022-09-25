@@ -28,6 +28,7 @@ public class VirtualMachine {
         while (isRunning){ //add check for dump in loop
             ByteCode code = program.getCode(programCounter);
             code.execute(this);
+            if (dumpFlag) { code.dump(); }
             programCounter++;
         }
     }
@@ -37,15 +38,14 @@ public class VirtualMachine {
      * Create a method to halt program if HaltCode is found?
      */
 
-    public void haltCode(){
-        /**
-         * TODO: add checks before closing program
-         */
-        isRunning = false;
+
+
+    public void setDumpFlag(boolean arg){
+        dumpFlag = arg;
     }
 
-    public void setDumpFlag(){
-
+    public void setProgramCounter(int newProgramCount){
+        programCounter = newProgramCount;
     }
 
     public int pop(){
@@ -70,5 +70,19 @@ public class VirtualMachine {
         return -1;
     }
 
+    /**
+     * This will create a newFrame with arguments if any are passed
+     * @param args Number of arguments to use in new frame
+     */
+    public void newFrame(int args){
+        this.runTimeStack.newFrameAt(args);
+    }
+
+    public void haltCode(){
+        /**
+         * TODO: add checks before closing program
+         */
+        isRunning = false;
+    }
 
 }

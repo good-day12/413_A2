@@ -35,10 +35,7 @@ public class DumpCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-        if (dumpFlag){
-            //run vm.dump function
-        }
-
+        vm.setDumpFlag(dumpFlag);
     }
 
     @Override

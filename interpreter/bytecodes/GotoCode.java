@@ -38,9 +38,7 @@ public class GotoCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.pop(); // should be our label?
 
-        //do we create a function in VM to change our program counter???
     }
 
     @Override
