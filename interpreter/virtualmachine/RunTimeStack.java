@@ -24,7 +24,6 @@ class RunTimeStack {
     public RunTimeStack() {
         runTimeStack = new ArrayList<>();
         framePointer = new Stack<>();
-        index = 0;
         // Add initial Frame Pointer, main is the entry
         // point of our language, so its frame pointer is 0. should never be empty
         framePointer.add(0); //so the frame pointer holds the value of the runTimeStack that we are currently
@@ -51,7 +50,6 @@ class RunTimeStack {
      */
     public int push(int i) {
         runTimeStack.add(i); //insert element into top of our list
-        index++;//increment counter to keep track of index
         return i;
     }
 
@@ -62,12 +60,7 @@ class RunTimeStack {
      */
     public int pop() throws RuntimeStackIllegalAccess {
         try{
-            //make sure we don't try to access anything outside our current frame, check if it is empty
-//            if(index >= framePointer.peek() && !runTimeStack.isEmpty() ) {
                 return this.runTimeStack.remove(lastIndex());
-//            } else{
-//                throw new EmptyStackException();
-//            }
         } catch (IndexOutOfBoundsException ex){
             throw new RuntimeStackIllegalAccess(ex);
         }
@@ -81,24 +74,11 @@ class RunTimeStack {
      */
     //like step 4 to 5 from pdf
     public int store(int offsetFromFramePointer) throws RuntimeStackIllegalAccess {
-
-        //if our offset is out of bounds of its current frame it'll be bigger than the runtime stack size minus
-        //the current framePointer which holds the size of our frame currently
-        //if out of bounds throw exception
-        try{
-            if (offsetFromFramePointer > runTimeStack.size() - framePointer.peek()) {
-                throw new IndexOutOfBoundsException(); //what exception should I use?
-            }
-            int temp = runTimeStack.get(index - 1); //grab item from top of runTimeStack, one behind index
-            index -= (index - framePointer.peek()); //reset our index to new spot
-            runTimeStack.add(index, temp);
-            index++; //account for new item added
-
-        } catch (IndexOutOfBoundsException ex){
-            throw new RuntimeStackIllegalAccess(ex);
+        if (lastIndex() - framePointer.peek() < offsetFromFramePointer){ // check if we are in our current frame
+            throw new RuntimeStackIllegalAccess(new EmptyStackException());
         }
-
-        return 0;
+        runTimeStack.add(framePointer.peek() + offsetFromFramePointer, runTimeStack.get(lastIndex()));
+        return runTimeStack.get(framePointer.peek() + offsetFromFramePointer);
     }
 
     /**
@@ -113,10 +93,11 @@ class RunTimeStack {
             //if our offset is out of bounds of its current frame it'll be bigger than the runtime stack size minus
             //the current framePointer which holds the size of our frame currently
             //if out of bounds throw exception
-            if (offsetFromFramePointer > runTimeStack.size() - framePointer.peek()) {
+            if (lastIndex() - framePointer.peek() < offsetFromFramePointer) {
                 throw new IndexOutOfBoundsException(); //what exception should I use?
             }
-            return runTimeStack.get(index - offsetFromFramePointer);
+            runTimeStack.add(runTimeStack.get(offsetFromFramePointer + framePointer.peek()));
+            return runTimeStack.get(lastIndex());
 
         } catch (IndexOutOfBoundsException ex){
             throw new RuntimeStackIllegalAccess(ex);
@@ -129,15 +110,19 @@ class RunTimeStack {
      */
     public void newFrameAt(int offsetFromTopOfRunStack){
         //add number of new index for new frame into the frame pointer stack,
-        framePointer.push(index - offsetFromTopOfRunStack);
+        framePointer.push((lastIndex() - offsetFromTopOfRunStack) + 1); //+1 because the frame is everything new
     }
 
     /**
      * pop the current frame off the runtime stack. Also removes the frame pointer value from the FramePointer Stack.
      * I think that this should already have access to the framePointer
      */
-    public void popFrame(){
-        index = framePointer.pop() + 1; //account for off by one error.
+    public void popFrame() throws RuntimeStackIllegalAccess {
+        for (int i = lastIndex(); i > framePointer.peek(); i--){
+            this.pop();
+        }
+        framePointer.pop();
+
     }
 
     /**
@@ -152,14 +137,55 @@ class RunTimeStack {
     /**
      * How to test this class
      */
+    /*******************************************************************************************************************************
+     * Only for testing in this class
+     */
+    private void printRuntime (){
+        runTimeStack.forEach(System.out::println);
 
+    }
+
+    private void printFramePointer(){
+        framePointer.forEach(System.out::println);
+    }
 /*
 Use this to test the runTimeStack
  */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RuntimeStackIllegalAccess {
         RunTimeStack x = new RunTimeStack();
         x.push(1);
         x.push(2);
-        x.runTimeStack.forEach(v -> System.out.println(v));
+        x.push(3);
+        x.push(4);
+        x.push(5);
+        x.push(6);
+
+
+        //create new Frame
+        x.newFrameAt(2); //create two arguments to load into "function"
+
+        x.push(7); //act like our function is pushing these to the runtime stack
+        x.push(8);
+        x.push(9);  //lets say nine is the return value we want and we want to exit function now
+
+        x.load(2);
+//        x.store(0);
+//        x.popFrame();
+
+//        try {
+//            x.pop();
+//            x.pop();
+//            x.pop();
+//            x.pop();
+//            x.pop();
+//            x.pop();
+//            x.pop();
+//            x.pop();
+//        } catch (RuntimeStackIllegalAccess e) {
+//            e.printStackTrace();
+//        }
+        x.printRuntime();
+        x.printFramePointer();
+
     }
 }
