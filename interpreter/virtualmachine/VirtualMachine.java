@@ -44,13 +44,19 @@ public class VirtualMachine {
         dumpFlag = arg;
     }
 
-    public void callCode(int newProgramCount){
+    public void setProgramCounter(int newProgramCount){
+        programCounter = newProgramCount;
+    }
+
+    public void goTo(int newProgramCount){
         returnAddress.push(programCounter); //save the old address,so we go to the next step, avoid a loop (+1?)
         programCounter = newProgramCount;
     }
 
     public void returnCode(){
-        programCounter = returnAddress.pop() + 1; //should we add one so we can go to the next step and avoid a loop
+        if (!returnAddress.isEmpty()) {
+            programCounter = returnAddress.pop();
+        }//should we add one so we can go to the next step and avoid a loop
     } //POTENTIAL INFINITE LOOP ERROR***********************************************************************
 
 
@@ -95,6 +101,14 @@ public class VirtualMachine {
     public void store(int offsetFromFrame){
         try {
             runTimeStack.load(offsetFromFrame);
+        } catch (RuntimeStackIllegalAccess e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void popFrame(){
+        try {
+            runTimeStack.popFrame();
         } catch (RuntimeStackIllegalAccess e) {
             e.printStackTrace();
         }

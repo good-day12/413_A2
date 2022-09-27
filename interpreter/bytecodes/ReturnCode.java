@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * • The Return ByteCode can take 0 to 1 arguments. The arguments have no effect on its functionality. But does effect
  *      the Dumping process.
  * • The Return ByteCode must store the return value at the top of the runtime stack.
- *  ********Where do we get the return value from???????????????????????????????????????????????????????????
  * • The Return ByteCode must empty the current frame of all values when the function
  * is complete.
  * • The Return ByteCode must pop the top value from the framePointer stack to remove the frame boundary.
@@ -50,7 +49,10 @@ public class ReturnCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-
+        int temp = vm.pop(); //temp int to hold return value
+        vm.popFrame();
+        vm.pushValue(temp);//put that value back into our stack to return that value
+        vm.returnCode();
     }
 
     @Override

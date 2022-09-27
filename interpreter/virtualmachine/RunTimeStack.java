@@ -59,11 +59,10 @@ class RunTimeStack {
      * @throws RuntimeStackIllegalAccess if popping an empty stack
      */
     public int pop() throws RuntimeStackIllegalAccess {
-        try{
-                return this.runTimeStack.remove(lastIndex());
-        } catch (IndexOutOfBoundsException ex){
-            throw new RuntimeStackIllegalAccess(ex);
+        if (this.runTimeStack.isEmpty()){
+            throw new RuntimeStackIllegalAccess(new EmptyStackException());
         }
+        return this.runTimeStack.remove(lastIndex());
     }
 
     /**
@@ -89,19 +88,15 @@ class RunTimeStack {
      * @throws RuntimeStackIllegalAccess if offset is out of bounds of current frame
      */
     public int load(int offsetFromFramePointer) throws RuntimeStackIllegalAccess {
-        try{
             //if our offset is out of bounds of its current frame it'll be bigger than the runtime stack size minus
             //the current framePointer which holds the size of our frame currently
             //if out of bounds throw exception
-            if (lastIndex() - framePointer.peek() < offsetFromFramePointer) {
-                throw new IndexOutOfBoundsException(); //what exception should I use?
+            if (runTimeStack.size() - framePointer.peek() < offsetFromFramePointer || this.runTimeStack.isEmpty()) {
+                throw new RuntimeStackIllegalAccess(new IndexOutOfBoundsException()); //what exception should I use?
             }
             runTimeStack.add(runTimeStack.get(offsetFromFramePointer + framePointer.peek()));
             return runTimeStack.get(lastIndex());
 
-        } catch (IndexOutOfBoundsException ex){
-            throw new RuntimeStackIllegalAccess(ex);
-        }
     }
 
     /**
@@ -121,7 +116,9 @@ class RunTimeStack {
         for (int i = lastIndex(); i > framePointer.peek(); i--){
             this.pop();
         }
-        framePointer.pop();
+        if (framePointer.size() != 1) { //zero should always be loaded into here so if size is one leave zero in here
+            framePointer.pop();
+        }
 
     }
 

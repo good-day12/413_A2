@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * 3.7.1 Requirements
  * • The Lit ByteCode takes 1 or 2 arguments.
- * • The Lit ByteCode must puish a value to the RunTimeStack.
+ * • The Lit ByteCode must push a value to the RunTimeStack.
  * • Is it not required that the identifier argument exists.
  * • If dumping is on, Lit ByteCode is requried to be dumped.
  * • The Lit bytecode cannot detect when it should be dumped nor should it call dump in the VirtualMachine.
@@ -44,7 +44,7 @@ public class LitCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-
+        vm.pushValue(value);
     }
 
     @Override

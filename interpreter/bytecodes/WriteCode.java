@@ -37,6 +37,6 @@ public class WriteCode extends ByteCode{
 
     @Override
     public void dump() {
-
+        System.out.println("WRITE ");
     }
 }

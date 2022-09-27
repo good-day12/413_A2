@@ -48,16 +48,9 @@ public class FalseBranchCode extends ByteCode{
     public void execute(VirtualMachine vm) {
         //if top of stack is 0 we will jump to label
         if (vm.pop() == 0){
-            //label will be our first argument
-
-            //logic for going to address somehow?
-            //do we create a function in VM to change our program counter???
-
-
+            vm.goTo(addressOfLabel);
         }
-        else {
-            //vm.popCode() should be an address right?
-        }
+
     }
 
     @Override
