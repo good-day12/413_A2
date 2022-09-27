@@ -48,7 +48,7 @@ public class FalseBranchCode extends ByteCode{
     public void execute(VirtualMachine vm) {
         //if top of stack is 0 we will jump to label
         if (vm.pop() == 0){
-            vm.goTo(addressOfLabel);
+            vm.setProgramCounter(addressOfLabel);
         }
 
     }
@@ -58,7 +58,7 @@ public class FalseBranchCode extends ByteCode{
         System.out.println("FALSEBRANCH ");
     }
 
-    public void setAddressOfLabel(int address){ addressOfLabel = address; }
+    public void setAddress(int address){ addressOfLabel = address; }
     public String getLabel(){ return initialLabel; }
 
 

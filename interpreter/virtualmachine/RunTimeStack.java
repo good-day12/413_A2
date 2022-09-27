@@ -128,7 +128,15 @@ class RunTimeStack {
      * Example [1,2,3] [4,5,6] [7,8]
      * Frame pointers would be 0, 3, 6 */
     public String dump(){
-        return "";
+        String print = "";
+        for (int i = 0; i < framePointer.size(); i++) {
+            if (i == framePointer.size() - 1){
+                print += runTimeStack.subList(framePointer.get(i), runTimeStack.size());
+            } else {
+                print += runTimeStack.subList(framePointer.get(i), framePointer.get(i + 1));
+            }
+        }
+        return print;
     }
 
     /**
@@ -138,7 +146,7 @@ class RunTimeStack {
      * Only for testing in this class
      */
     private void printRuntime (){
-        runTimeStack.forEach(System.out::println);
+        runTimeStack.forEach(v-> System.out.print(v + ", "));
 
     }
 
@@ -153,6 +161,7 @@ Use this to test the runTimeStack
         x.push(1);
         x.push(2);
         x.push(3);
+        x.newFrameAt(0);
         x.push(4);
         x.push(5);
         x.push(6);
@@ -165,24 +174,10 @@ Use this to test the runTimeStack
         x.push(8);
         x.push(9);  //lets say nine is the return value we want and we want to exit function now
 
-        x.load(0);
-        x.store(1);
-        x.popFrame();
-
-//        try {
-//            x.pop();
-//            x.pop();
-//            x.pop();
-//            x.pop();
-//            x.pop();
-//            x.pop();
-//            x.pop();
-//            x.pop();
-//        } catch (RuntimeStackIllegalAccess e) {
-//            e.printStackTrace();
-//        }
-        x.printRuntime();
+        System.out.println(x.dump());
         x.printFramePointer();
+
+
 
     }
 }

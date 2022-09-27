@@ -11,7 +11,7 @@ public class VirtualMachine {
     private Program        program;
     private int            programCounter;
     private boolean        isRunning;
-    private boolean        dumpFlag; //if dumpFlag is on call dump method for each bytecode?
+    private boolean        dumpFlag = true; //if dumpFlag is on call dump method for each bytecode?
 
     public VirtualMachine(Program program) { //this object will already be loaded with everything by the interpreter
         this.program = program;
@@ -48,7 +48,7 @@ public class VirtualMachine {
         programCounter = newProgramCount;
     }
 
-    public void goTo(int newProgramCount){
+    public void callCode(int newProgramCount){
         returnAddress.push(programCounter); //save the old address,so we go to the next step, avoid a loop (+1?)
         programCounter = newProgramCount;
     }
