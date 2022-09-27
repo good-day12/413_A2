@@ -44,9 +44,15 @@ public class VirtualMachine {
         dumpFlag = arg;
     }
 
-    public void setProgramCounter(int newProgramCount){
+    public void callCode(int newProgramCount){
+        returnAddress.push(programCounter); //save the old address,so we go to the next step, avoid a loop (+1?)
         programCounter = newProgramCount;
     }
+
+    public void returnCode(){
+        programCounter = returnAddress.pop() + 1; //should we add one so we can go to the next step and avoid a loop
+    } //POTENTIAL INFINITE LOOP ERROR***********************************************************************
+
 
     public int pop(){
         try {
@@ -78,9 +84,17 @@ public class VirtualMachine {
         this.runTimeStack.newFrameAt(args);
     }
 
-    public void load(int args){
+    public void load(int offsetFromFrame){
         try {
-            runTimeStack.load(args);
+            runTimeStack.load(offsetFromFrame);
+        } catch (RuntimeStackIllegalAccess e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void store(int offsetFromFrame){
+        try {
+            runTimeStack.load(offsetFromFrame);
         } catch (RuntimeStackIllegalAccess e) {
             e.printStackTrace();
         }

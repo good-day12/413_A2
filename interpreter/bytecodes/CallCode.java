@@ -52,7 +52,7 @@ public class CallCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.setProgramCounter(address);
+        vm.callCode(address);
     }
 
     @Override

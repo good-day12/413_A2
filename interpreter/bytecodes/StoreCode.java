@@ -39,18 +39,23 @@ import java.util.ArrayList;
  */
 
 public class StoreCode extends ByteCode {
+
+    int offsetFromFrame;
+    String identifier = "";
+
     @Override
     public void init(ArrayList<String> stringArray) {
-
+        offsetFromFrame = Integer.parseInt(stringArray.get(0));
+        if (stringArray.size() > 1) { identifier = stringArray.get(1); }
     }
 
     @Override
     public void execute(VirtualMachine vm) {
-
+        vm.store(offsetFromFrame);
     }
 
     @Override
     public void dump() {
-
+        System.out.println("STORE " + offsetFromFrame + " " + identifier + " " + identifier + "=" + offsetFromFrame );
     }
 }
