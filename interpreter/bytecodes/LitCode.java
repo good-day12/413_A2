@@ -52,7 +52,7 @@ public class LitCode extends ByteCode{
         if (id.equals("")) {
             System.out.println("LIT " + value);
         } else {
-            System.out.println("LIT " + id + " int" + value);
+            System.out.println("LIT " + id + " int " + value);
         }
     }
 }

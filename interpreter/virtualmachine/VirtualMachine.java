@@ -28,7 +28,10 @@ public class VirtualMachine {
         while (isRunning){ //add check for dump in loop
             ByteCode code = program.getCode(programCounter);
             code.execute(this);
-            if (dumpFlag) { code.dump(); }
+            if (dumpFlag) {
+                code.dump();
+                System.out.println(runTimeStack.dump());
+            }
             programCounter++;
         }
     }

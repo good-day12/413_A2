@@ -93,8 +93,8 @@ public class Program {
         ByteCode label = new LabelCode();
         ByteCode call = new CallCode();
 
+        //use a map to hold the label's string value as key and index as value
         HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
-
 //
 //        //create Integer array to keep track of indexes
 //        ArrayList<Integer> falseBranchIndexes = new ArrayList<>();
@@ -113,12 +113,23 @@ public class Program {
 
         for (int i = 0; i < program.size(); i++){
 //fill our map with the key (our address label) and value, address of current code
-            if (this.getCode(i).getClass().equals(call.getClass())){
+            if (this.getCode(i).getClass().equals(label.getClass())){
                 LabelCode temp = (LabelCode) this.getCode(i);
                 labelMap.put(temp.getLabel(), i);
             }
 
         } //map will be initialized with all labels and their addresses
+
+        //what if i was right and I should make two maps, to make this more efficient
+        //so it oculd be
+        /*
+        this.getCode(ByteCodeMap.get(Label)).setAddress(labelMap.get(address))
+
+        maybe we could use the putAll function?
+
+        how would this hold up if we add more conditioinal branches?
+        should we add another abstract class that implements ByteCode?
+         */
 
         for (int i = 0; i < program.size(); i++){
             //if we find a falseBranch
@@ -128,11 +139,12 @@ public class Program {
                 //set the address to the corresponding key value of our label
                 temp.setAddress(labelMap.get(temp.getLabel()));
 
+                //repeat for goTo and call
             } else if (this.getCode(i).getClass().equals(goTo.getClass())){
                 GotoCode temp = (GotoCode) this.getCode(i);
                 temp.setAddress(labelMap.get(temp.getLabel()));
 
-            } else if (this.getCode(i).getClass().equals(label.getClass())){
+            } else if (this.getCode(i).getClass().equals(call.getClass())){
                 CallCode temp = (CallCode) this.getCode(i);
                 temp.setAddress(labelMap.get(temp.getLabel()));
 

@@ -113,7 +113,7 @@ class RunTimeStack {
      * I think that this should already have access to the framePointer
      */
     public void popFrame() throws RuntimeStackIllegalAccess {
-        for (int i = lastIndex(); i > framePointer.peek(); i--){
+        for (int i = lastIndex(); i >= framePointer.peek(); i--){
             this.pop();
         }
         if (framePointer.size() != 1) { //zero should always be loaded into here so if size is one leave zero in here
@@ -129,10 +129,16 @@ class RunTimeStack {
      * Frame pointers would be 0, 3, 6 */
     public String dump(){
         String print = "";
+        if(runTimeStack.isEmpty()){
+            return print;
+        } else if (framePointer.size() == 1){
+            print += runTimeStack.toString();
+            return print;
+        }
         for (int i = 0; i < framePointer.size(); i++) {
-            if (i == framePointer.size() - 1){
+            if (i == framePointer.size() - 1 && !runTimeStack.isEmpty()){
                 print += runTimeStack.subList(framePointer.get(i), runTimeStack.size());
-            } else {
+            } else if (!runTimeStack.isEmpty()) {
                 print += runTimeStack.subList(framePointer.get(i), framePointer.get(i + 1));
             }
         }
@@ -173,6 +179,16 @@ Use this to test the runTimeStack
         x.push(7); //act like our function is pushing these to the runtime stack
         x.push(8);
         x.push(9);  //lets say nine is the return value we want and we want to exit function now
+
+        x.popFrame();
+        x.popFrame();
+        x.popFrame();
+
+        x.push(0);
+        x.pop();
+
+        //I need to test the returnCode logic in here
+
 
         System.out.println(x.dump());
         x.printFramePointer();
