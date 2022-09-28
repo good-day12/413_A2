@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * – one argument is the offset in the current frame where the value is to be copied
  * from.
  * – The second argument, if present, is the identifier (variable) the value belongs to. This will be used for dumping.
- * • Load must copy the value at the offset in the current and push it to the top of the stack.
+ * • Load must copy the value at the offset in the current frame and push it to the top of the stack.
  * • Load must not remove any values from the runtime stack.
  * • Load cannot operate across frame boundaries.
  * • Loads’s offset is strictly positive.

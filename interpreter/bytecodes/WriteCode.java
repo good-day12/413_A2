@@ -33,7 +33,7 @@ public class WriteCode extends ByteCode{
     @Override
     public void execute(VirtualMachine vm) {
         System.out.println(vm.peek());
-    }
+    } //peek or pop?
 
     @Override
     public void dump() {
