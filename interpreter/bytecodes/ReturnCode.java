@@ -57,6 +57,6 @@ public class ReturnCode extends ByteCode{
 
     @Override
     public void dump() {
-
+        System.out.println("RETURN"); //*********************NEEDS MORE IMPLEMENTATION
     }
 }

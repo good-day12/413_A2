@@ -56,6 +56,6 @@ public class ReadCode extends ByteCode{
 
     @Override
     public void dump() {
-
+        System.out.println("READ ");
     }
 }

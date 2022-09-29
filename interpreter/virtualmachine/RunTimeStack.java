@@ -76,7 +76,7 @@ class RunTimeStack {
         if (lastIndex() - framePointer.peek() < offsetFromFramePointer){ // check if we are in our current frame
             throw new RuntimeStackIllegalAccess(new EmptyStackException());
         }
-        runTimeStack.add(framePointer.peek() + offsetFromFramePointer, runTimeStack.get(lastIndex()));
+        runTimeStack.add(framePointer.peek() + offsetFromFramePointer, runTimeStack.remove(lastIndex()));
         return runTimeStack.get(framePointer.peek() + offsetFromFramePointer);
     }
 
@@ -105,7 +105,7 @@ class RunTimeStack {
      */
     public void newFrameAt(int offsetFromTopOfRunStack){
         //add number of new index for new frame into the frame pointer stack,
-        framePointer.push((lastIndex() - offsetFromTopOfRunStack) + 1); //+1 because the frame is everything new
+        framePointer.push((lastIndex() - offsetFromTopOfRunStack) + 1); //+1 because the frame is everything new?
     }
 
     /**
@@ -156,36 +156,40 @@ class RunTimeStack {
 
     }
 
-    private void printFramePointer(){
-        framePointer.forEach(System.out::println);
+    public void printFramePointer(){
+        framePointer.forEach(v-> System.out.print(v + ", "));
     }
 /*
 Use this to test the runTimeStack
  */
     public static void main(String[] args) throws RuntimeStackIllegalAccess {
         RunTimeStack x = new RunTimeStack();
-        x.push(1);
-        x.push(2);
-        x.push(3);
-        x.newFrameAt(0);
-        x.push(4);
-        x.push(5);
-        x.push(6);
-
-
-        //create new Frame
-        x.newFrameAt(0); //create two arguments to load into "function"
-
-        x.push(7); //act like our function is pushing these to the runtime stack
-        x.push(8);
-        x.push(9);  //lets say nine is the return value we want and we want to exit function now
-
-        x.popFrame();
-        x.popFrame();
-        x.popFrame();
-
         x.push(0);
-        x.pop();
+        x.push(0);
+        x.push(5);
+        x.store(0);
+
+
+        x.newFrameAt(0);
+        x.popFrame();
+//        x.push(4);
+//        x.push(5);
+//        x.push(6);
+//
+//
+//        //create new Frame
+//        x.newFrameAt(0); //create two arguments to load into "function"
+//
+//        x.push(7); //act like our function is pushing these to the runtime stack
+//        x.push(8);
+//        x.push(9);  //lets say nine is the return value we want and we want to exit function now
+//
+//        x.popFrame();
+//        x.popFrame();
+//        x.popFrame();
+//
+//        x.push(0);
+//        x.pop();
 
         //I need to test the returnCode logic in here
 

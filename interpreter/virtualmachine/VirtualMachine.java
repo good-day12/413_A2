@@ -103,7 +103,7 @@ public class VirtualMachine {
 
     public void store(int offsetFromFrame){
         try {
-            runTimeStack.load(offsetFromFrame);
+            runTimeStack.store(offsetFromFrame);
         } catch (RuntimeStackIllegalAccess e) {
             e.printStackTrace();
         }
@@ -115,6 +115,10 @@ public class VirtualMachine {
         } catch (RuntimeStackIllegalAccess e) {
             e.printStackTrace();
         }
+    }
+
+    public void printFrame(){
+        runTimeStack.printFramePointer();
     }
 
     public void haltCode(){

@@ -43,7 +43,7 @@ public class GotoCode extends ByteCode{
 
     @Override
     public void dump() {
-        System.out.println("GOTO ");
+        System.out.println("GOTO " + label);
     }
 
     public void setAddress(int a){ address = a; }

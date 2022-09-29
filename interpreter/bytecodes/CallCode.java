@@ -59,6 +59,7 @@ public class CallCode extends ByteCode{
 
     @Override
     public void dump() {
+        System.out.println("CALL " + label + "f(");
 
     }
 
