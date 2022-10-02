@@ -95,22 +95,66 @@ public class Program {
 
         //use a map to hold the label's string value as key and index as value
         HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
-//
-//        //create Integer array to keep track of indexes
-//        ArrayList<Integer> falseBranchIndexes = new ArrayList<>();
-//        ArrayList<Integer> goToIndexes = new ArrayList<>();
-//        ArrayList<Integer> labelIndexes = new ArrayList<>();
-//        ArrayList<Integer> callIndexes = new ArrayList<>();
-
-        //map use a map, key will be the address???? then the value will be where the byteCode needs to jump to
-        //value will be the label they need to go to
-
-
-        //use an array to keep track of indexes where you find them, no nested loops
+        HashMap<String, Integer> conditionMap = new HashMap<>();
 
         //downcast this.getCode(i) to (FalseBranchCode) or whatever we need
         //then use labelcode's return address function to get label
 
+        for (int i = 0; i < program.size(); i++){
+//fill our map with the key (our address label) and value, address of current code
+            if (this.getCode(i).getClass().equals(label.getClass())){
+                LabelCode temp = (LabelCode) this.getCode(i);
+                labelMap.put(temp.getLabel(), i);
+            }
+        } //map will be initialized with all labels and their addresses
+
+
+
+        //what if i was right and I should make two maps, to make this more efficient
+        //so it oculd be
+        /*
+        this.getCode(ByteCodeMap.get(Label)).setAddress(labelMap.get(address))
+
+        maybe we could use the putAll function?
+
+        how would this hold up if we add more conditioinal branches?
+        should we add another abstract class that implements ByteCode?
+        abstract class could be for conditional jumps
+
+                    else if (this.getCode(i).getClass().equals(falseBranch.getClass())){
+                FalseBranchCode temp = (FalseBranchCode) this.getCode(i);
+                conditionMap.put(temp.getLabel(), i);
+            }
+            else if (this.getCode(i).getClass().equals(goTo.getClass())){
+                GotoCode temp = (GotoCode) this.getCode(i);
+                conditionMap.put(temp.getLabel(), i);
+            }
+            else if (this.getCode(i).getClass().equals(call.getClass())){
+                CallCode temp = (CallCode) this.getCode(i);
+                conditionMap.put(temp.getLabel(), i);
+            }
+         */
+
+        for (int i = 0; i < program.size(); i++){
+            //if we find a falseBranch
+            if (this.getCode(i).getClass().equals(falseBranch.getClass())){
+                //set temp to the current FalseBranchCode object
+                FalseBranchCode temp = (FalseBranchCode) this.getCode(i);
+                //set the address to the corresponding key value of our label
+                temp.setAddress(labelMap.get(temp.getLabel()));
+                //repeat for goTo and call
+            } else if (this.getCode(i).getClass().equals(goTo.getClass())){
+                GotoCode temp = (GotoCode) this.getCode(i);
+                temp.setAddress(labelMap.get(temp.getLabel()));
+            } else if (this.getCode(i).getClass().equals(call.getClass())){
+                CallCode temp = (CallCode) this.getCode(i);
+                temp.setAddress(labelMap.get(temp.getLabel()));
+            }
+        }
+    }
+}
+
+/*
         for (int i = 0; i < program.size(); i++){
 //fill our map with the key (our address label) and value, address of current code
             if (this.getCode(i).getClass().equals(label.getClass())){
@@ -129,89 +173,23 @@ public class Program {
 
         how would this hold up if we add more conditioinal branches?
         should we add another abstract class that implements ByteCode?
-         */
+        abstract class could be for conditional jumps
+
 
         for (int i = 0; i < program.size(); i++){
-            //if we find a falseBranch
-            if (this.getCode(i).getClass().equals(falseBranch.getClass())){
-                //set temp to the current FalseBranchCode object
-                FalseBranchCode temp = (FalseBranchCode) this.getCode(i);
-                //set the address to the corresponding key value of our label
-                temp.setAddress(labelMap.get(temp.getLabel()));
-
-                //repeat for goTo and call
-            } else if (this.getCode(i).getClass().equals(goTo.getClass())){
-                GotoCode temp = (GotoCode) this.getCode(i);
-                temp.setAddress(labelMap.get(temp.getLabel()));
-
-            } else if (this.getCode(i).getClass().equals(call.getClass())){
-                CallCode temp = (CallCode) this.getCode(i);
-                temp.setAddress(labelMap.get(temp.getLabel()));
-
-            }
+        //if we find a falseBranch
+        if (this.getCode(i).getClass().equals(falseBranch.getClass())){
+        //set temp to the current FalseBranchCode object
+        FalseBranchCode temp = (FalseBranchCode) this.getCode(i);
+        //set the address to the corresponding key value of our label
+        temp.setAddress(labelMap.get(temp.getLabel()));
+        //repeat for goTo and call
+        } else if (this.getCode(i).getClass().equals(goTo.getClass())){
+        GotoCode temp = (GotoCode) this.getCode(i);
+        temp.setAddress(labelMap.get(temp.getLabel()));
+        } else if (this.getCode(i).getClass().equals(call.getClass())){
+        CallCode temp = (CallCode) this.getCode(i);
+        temp.setAddress(labelMap.get(temp.getLabel()));
         }
-
-
-//        for (int i = 0; i < program.size(); i++){
-////fill our respective lists with index occurrences of each type
-//            if (this.getCode(i).getClass().equals(falseBranch.getClass())){
-//                falseBranchIndexes.add(i);
-//            } else if (this.getCode(i).getClass().equals(goTo.getClass())){
-//                goToIndexes.add(i);
-//
-//            } else if (this.getCode(i).getClass().equals(label.getClass())){
-//                labelIndexes.add(i);
-//
-//            } else if (this.getCode(i).getClass().equals(call.getClass())){
-//                callIndexes.add(i);
-//            }
-//
-//        } //map will be initialized with all indices
-
-
-
-//
-//        //now our indexes arrays are full with corresponding index for each entry
-//        LabelCode tempLabel;
-//        //handle falseBranch code bytes
-//        for (int i = 0; i < falseBranchIndexes.size(); i++){
-//            //cast our falseBranch CodeByte from the program to temp variable
-//            FalseBranchCode temp = (FalseBranchCode) this.getCode(falseBranchIndexes.get(i));
-//            for (int j = 0; j < labelIndexes.size(); j++){
-//                //cast our labelCode to compare with
-//                tempLabel = (LabelCode) this.getCode(labelIndexes.get(j));
-//                if (temp.getLabel().equals(tempLabel.getLabel())){
-//                    temp.setAddress(labelIndexes.get(j));
-//                    labelIndexes.remove(j);
-//                }
-//            }
-//        }
-//        //handle goTo code bytes
-//        for (int i = 0; i < goToIndexes.size(); i++){
-//            //cast our falseBranch CodeByte from the program to temp variable
-//            GotoCode temp = (GotoCode) this.getCode(goToIndexes.get(i));
-//            for (int j = 0; j < labelIndexes.size(); j++){
-//                //cast our labelCode to compare with
-//                tempLabel = (LabelCode) this.getCode(labelIndexes.get(j));
-//                if (temp.getLabel().equals(tempLabel.getLabel())){
-//                    temp.setAddress(labelIndexes.get(j));
-//                    labelIndexes.remove(j); //idk why this is suspicious
-//                }
-//            }
-//        }
-//        //handle Call code bytes
-//        for (int i = 0; i < callIndexes.size(); i++){
-//            //cast our falseBranch CodeByte from the program to temp variable
-//            CallCode temp = (CallCode) this.getCode(callIndexes.get(i));
-//            for (int j = 0; j < labelIndexes.size(); j++){
-//                //cast our labelCode to compare with
-//                tempLabel = (LabelCode) this.getCode(labelIndexes.get(j));
-//                if (temp.getLabel().equals(tempLabel.getLabel())){
-//                    temp.setAddress(labelIndexes.get(j));
-//                    labelIndexes.remove(j);
-//                }
-//            }
-//        }
-    }
-
-}
+        }
+ */
