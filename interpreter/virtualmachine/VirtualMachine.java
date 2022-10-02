@@ -11,7 +11,7 @@ public class VirtualMachine {
     private Program        program;
     private int            programCounter;
     private boolean        isRunning;
-    private boolean        dumpFlag = true; //if dumpFlag is on call dump method for each bytecode?
+    private boolean        dumpFlag = false; //if dumpFlag is on call dump method for each bytecode?
 
     public VirtualMachine(Program program) { //this object will already be loaded with everything by the interpreter
         this.program = program;
@@ -67,9 +67,8 @@ public class VirtualMachine {
         try {
             return runTimeStack.pop();
         } catch (RuntimeStackIllegalAccess e) {
-            e.printStackTrace();
+            return 0; //if we pop more than we have
         }
-        return -1;
     }
 
     public void pushValue (int value){

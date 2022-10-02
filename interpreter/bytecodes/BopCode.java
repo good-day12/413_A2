@@ -49,55 +49,57 @@ public class BopCode extends ByteCode{
 
     @Override
     public void execute(VirtualMachine vm) {
+        int temp1 = vm.pop(); //temp values to hold our popped values because they need to be reversed
+        int temp2 = vm.pop();
         switch (operator) {
-            case "+" -> vm.pushValue(vm.pop() + vm.pop());
-            case "-" -> vm.pushValue(vm.pop() - vm.pop());
-            case "*" -> vm.pushValue(vm.pop() * vm.pop());
-            case "/" -> vm.pushValue(vm.pop() / vm.pop());
+            case "+" -> vm.pushValue(temp2 + temp1);
+            case "-" -> vm.pushValue(temp2 - temp1);
+            case "*" -> vm.pushValue(temp2 * temp1);
+            case "/" -> vm.pushValue(temp2 / temp1);
             case "==" -> {
-                if (vm.pop() == vm.pop()){
+                if (temp2 == temp1){
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
                 }
             }
             case "!=" -> {
-                if (vm.pop() != vm.pop()){
+                if (temp2 != temp1){
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
                 }
             }
             case "<=" -> {
-                if (vm.pop() <= vm.pop()){
+                if (temp2 <= temp1){
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
                 }
             }
             case "<" -> {
-                if (vm.pop() < vm.pop()){
+                if (temp2 < temp1){
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
                 }
             }
             case ">=" -> {
-                if (vm.pop() >= vm.pop()){
+                if (temp2 >= temp1){
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
                 }
             }
             case ">" -> {
-                if (vm.pop() > vm.pop()){
+                if (temp2 > temp1){
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
                 }
             }
             case "&" -> {
-                if (vm.pop() + vm.pop() == 2){ //if pops are both one, then both are true values
+                if (temp2 + temp1 == 2){ //if pops are both one, then both are true values
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
@@ -105,14 +107,13 @@ public class BopCode extends ByteCode{
             }
             case "|" -> {
                 //if equal to zero than both are false, if one or two, then at least one is true
-                if (vm.pop() + vm.pop() != 0){
+                if (temp2 +temp1 != 0){
                     vm.pushValue(1); //1 = true in java
                 } else{
                     vm.pushValue(0); //0 = false in java
                 }
             }
         }
-
     }
 
     @Override
