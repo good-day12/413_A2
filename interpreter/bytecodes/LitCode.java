@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * TODO: implement logic
  */
 
-public class LitCode extends ByteCode{
+public class LitCode implements ByteCode{
 
     private int value;
     private String id = "";

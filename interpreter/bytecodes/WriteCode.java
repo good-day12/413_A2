@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * TODO: implement logic
  */
 
-public class WriteCode extends ByteCode{
+public class WriteCode implements ByteCode{
     @Override
     public void init(ArrayList<String> stringArray) {
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * TODO: implement logic
  */
-public class HaltCode extends ByteCode{
+public class HaltCode implements ByteCode {
     @Override
     public void init(ArrayList<String> stringArray) {
 

@@ -40,7 +40,7 @@ import java.util.ArrayList;
 /**
  * TODO: implement DUMP logic
  */
-public class CallCode extends JumpByteCode{
+public class CallCode implements JumpByteCode {
 
     private String label;
     private int address;

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 /**
  * TODO: implement logic
  */
-public class LabelCode extends ByteCode{
+public class LabelCode implements ByteCode {
 
     private String label;
 

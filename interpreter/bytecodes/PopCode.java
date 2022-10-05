@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * TODO: implement logic
  */
 
-public class PopCode extends ByteCode{
+public class PopCode implements ByteCode{
     private int popNum;
 
     @Override

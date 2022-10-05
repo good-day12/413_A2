@@ -40,7 +40,7 @@ import java.util.ArrayList;
  * TODO: implement logic
  */
 
-public class ReturnCode extends ByteCode{
+public class ReturnCode implements ByteCode{
 
     @Override
     public void init(ArrayList<String> stringArray) {

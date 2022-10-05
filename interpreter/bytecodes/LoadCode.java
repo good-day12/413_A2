@@ -40,7 +40,7 @@ import java.util.ArrayList;
  * TODO: implement logic
  */
 
-public class LoadCode extends ByteCode{
+public class LoadCode implements ByteCode{
 
     private int offset;
     private String id = "";

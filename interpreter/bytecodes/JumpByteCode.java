@@ -1,6 +1,6 @@
 package interpreter.bytecodes;
 
-public abstract class JumpByteCode extends ByteCode{
+public interface JumpByteCode extends ByteCode{
 
     public abstract void setLabel(String label);
 

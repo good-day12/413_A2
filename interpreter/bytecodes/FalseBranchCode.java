@@ -35,7 +35,7 @@ import java.util.ArrayList;
 /**
  * TODO: implement logic
  */
-public class FalseBranchCode extends JumpByteCode{
+public class FalseBranchCode implements JumpByteCode {
     private String label;
     private int address;
 

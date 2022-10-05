@@ -29,7 +29,7 @@ import java.util.Scanner;
  * TODO: implement logic
  */
 
-public class ReadCode extends ByteCode{
+public class ReadCode implements ByteCode{
 
     @Override
     public void init(ArrayList<String> stringArray) {

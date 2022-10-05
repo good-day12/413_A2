@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * TODO: implement logic
  */
-public class GotoCode extends JumpByteCode{
+public class GotoCode implements JumpByteCode {
     private String label;
     private int address;
 

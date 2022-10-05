@@ -38,7 +38,7 @@ import java.util.ArrayList;
  * TODO: implement logic
  */
 
-public class StoreCode extends ByteCode {
+public class StoreCode implements ByteCode {
 
     int offsetFromFrame;
     String identifier = "";

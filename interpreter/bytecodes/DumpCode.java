@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * or ”OFF”.
  * • The Dump ByteCode is NOT TO BE DUMPED.
  */
-public class DumpCode extends ByteCode{
+public class DumpCode implements ByteCode {
 
     private boolean dumpFlag;
 
