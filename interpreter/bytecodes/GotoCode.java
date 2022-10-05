@@ -26,8 +26,7 @@ import java.util.ArrayList;
 /**
  * TODO: implement logic
  */
-public class GotoCode extends ByteCode{
-
+public class GotoCode extends JumpByteCode{
     private String label;
     private int address;
 
@@ -46,9 +45,11 @@ public class GotoCode extends ByteCode{
         System.out.println("GOTO " + label);
     }
 
-    public void setAddress(int a){ address = a; }
+    @Override
+    public void setLabel(String label) { this.label = label; }
 
-    public int getAddress() { return address; }
-
+    @Override
     public String getLabel(){ return label; }
+
+    public void setAddress(int address){ this.address = address; }
 }

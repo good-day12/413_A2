@@ -35,31 +35,36 @@ import java.util.ArrayList;
 /**
  * TODO: implement logic
  */
-public class FalseBranchCode extends ByteCode{
-    private String initialLabel;
-    private int addressOfLabel;
+public class FalseBranchCode extends JumpByteCode{
+    private String label;
+    private int address;
 
     @Override
     public void init(ArrayList<String> stringArray) {
-        initialLabel = stringArray.get(0);
+        label = stringArray.get(0);
     }
 
     @Override
     public void execute(VirtualMachine vm) {
         //if top of stack is 0 we will jump to label
         if (vm.pop() == 0){
-            vm.setProgramCounter(addressOfLabel);
+            vm.setProgramCounter(address);
         }
 
     }
 
     @Override
     public void dump() {
-        System.out.println("FALSEBRANCH " + initialLabel);
+        System.out.println("FALSEBRANCH " + label);
     }
 
-    public void setAddress(int address){ addressOfLabel = address; }
-    public String getLabel(){ return initialLabel; }
+    public void setAddress(int address){ this.address = address; }
+
+    @Override
+    public void setLabel(String label) { this.label = label; }
+
+    @Override
+    public String getLabel(){ return this.label; }
 
 
 }

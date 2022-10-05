@@ -42,5 +42,7 @@ public class LabelCode extends ByteCode{
         System.out.println("LABEL " + label);
     }
 
+    public void setLabel(String l) { label = l; }
+
     public String getLabel (){ return label; }
 }

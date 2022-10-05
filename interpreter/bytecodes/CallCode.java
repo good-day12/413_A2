@@ -40,7 +40,7 @@ import java.util.ArrayList;
 /**
  * TODO: implement logic
  */
-public class CallCode extends ByteCode{
+public class CallCode extends JumpByteCode{
 
     private String label;
     private int address;
@@ -63,10 +63,12 @@ public class CallCode extends ByteCode{
 
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
 
+    @Override
     public void setLabel(String label) {
         this.label = label;
     }
