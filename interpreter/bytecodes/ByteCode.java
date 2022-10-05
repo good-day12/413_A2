@@ -4,19 +4,25 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-/**
- * Each ByteCode SHOULD implement a method to support dumping of the bytecode
- *
- * should I make this class abstract? or make a parent class and have that be the abstract one?
- */
-
 public abstract class ByteCode {
 
+    /**
+     * Function will initialize the ByteCode and load the proper arguments into
+     * the ByteCode's data fields
+     * @param stringArray (where we get our arguments from)
+     */
+    public abstract void init(ArrayList<String> stringArray);
 
-    public abstract void init(ArrayList<String> stringArray); //do an array type strings
-
+    /**
+     * Function will execute the purpose of the ByteCode, definition varies for
+     * each ByteCode's intended purpose
+     * @param vm
+     */
     public abstract void execute(VirtualMachine vm);
 
+    /**
+     * Print out information about ByteCode's data field and execution
+     */
     public abstract void dump();
 
 

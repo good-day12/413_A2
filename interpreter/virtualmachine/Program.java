@@ -49,31 +49,26 @@ public class Program {
     public void resolveAddress() {
         //use a map to hold the label's string value as key and index as value
         HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
-//        HashMap<String, JumpByteCode> conditionMap = new HashMap<>();
+        //use an ArrayList to hold the JumpByteCodes
         ArrayList<JumpByteCode> conditionList = new ArrayList<>();
 
         for (int i = 0; i < program.size(); i++){
             ByteCode bc = this.program.get(i);
-//fill our map with the key (our address label) and value, address of current code
+            //fill our map with the key (our address label) and value, address of current code
             if (bc instanceof LabelCode temp){
                 labelMap.put(temp.getLabel(), i);
             }//if not label, check if it is a JumpByteCode
             else if (bc instanceof JumpByteCode temp){
-//                conditionMap.put(temp.getLabel(), temp);
+                //add JumpByteCode to conditionList
                 conditionList.add(temp);
             }
         } //labelMap will be initialized with all labels and their addresses
         //conditionList will be initialized with all JumpByteCodes
 
+        //go through condition list, grab addresses from labelMap, set those addresses
+        //to the JumpByteCode's new address
         for (JumpByteCode jumpByteCode : conditionList) {
             jumpByteCode.setAddress(labelMap.get(jumpByteCode.getLabel()));
         }
-
-//        for (HashMap.Entry<String,JumpByteCode> entry : conditionMap.entrySet()){
-//            //newAddress should hold the int of where our Jump needs to go to
-//            int newAddress = labelMap.get(entry.getKey());
-//            //now set the corresponding JumpByteCode to the new address
-//            entry.getValue().setAddress(newAddress);
-//        }
     }
 }

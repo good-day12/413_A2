@@ -128,21 +128,25 @@ class RunTimeStack {
      * Example [1,2,3] [4,5,6] [7,8]
      * Frame pointers would be 0, 3, 6 */
     public String dump(){
-        String print = "";
+        StringBuilder print = new StringBuilder();
         if(runTimeStack.isEmpty()){
-            return print;
+            //return "" if the stack is empty
+            return print.toString();
         } else if (framePointer.size() == 1){
-            print += runTimeStack.toString();
-            return print;
+            //print the whole stack because framePointer only contains 0
+            print.append(runTimeStack.toString());
+            return print.toString();
         }
         for (int i = 0; i < framePointer.size(); i++) {
+            //if we are at our last framePointer but still have more to print
+            //from runTimeStack
             if (i == framePointer.size() - 1 && !runTimeStack.isEmpty()){
-                print += runTimeStack.subList(framePointer.get(i), runTimeStack.size());
-            } else if (!runTimeStack.isEmpty()) {
-                print += runTimeStack.subList(framePointer.get(i), framePointer.get(i + 1));
+                print.append(runTimeStack.subList(framePointer.get(i), runTimeStack.size()));
+            } else if (!runTimeStack.isEmpty()) { //print between the two framePointer elements
+                print.append(runTimeStack.subList(framePointer.get(i), framePointer.get(i + 1)));
             }
         }
-        return print;
+        return print.toString();
     }
 
     /**
