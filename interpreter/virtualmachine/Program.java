@@ -47,29 +47,17 @@ public class Program {
      * Will give addresses to jump to corresponding to the label for all jump ByteCodes
      */
     public void resolveAddress() {
-        //use if/else to go through file if we encounter a falseBranch, call, goto, etc.
-        //don't need one for label, will only look for label after we find a falsebranch or goto
-        //create ByteCodes to compare with
-        ByteCode falseBranch = new FalseBranchCode();
-        ByteCode goTo = new GotoCode();
-        ByteCode label = new LabelCode();
-        ByteCode call = new CallCode();
-
         //use a map to hold the label's string value as key and index as value
         HashMap<String, Integer> labelMap = new HashMap<String, Integer>();
 //        HashMap<String, JumpByteCode> conditionMap = new HashMap<>();
         ArrayList<JumpByteCode> conditionList = new ArrayList<>();
-
-
-        //downcast this.getCode(i) to (FalseBranchCode) or whatever we need
-        //then use labelcode's return address function to get label
 
         for (int i = 0; i < program.size(); i++){
             ByteCode bc = this.program.get(i);
 //fill our map with the key (our address label) and value, address of current code
             if (bc instanceof LabelCode temp){
                 labelMap.put(temp.getLabel(), i);
-            }
+            }//if not label, check if it is a JumpByteCode
             else if (bc instanceof JumpByteCode temp){
 //                conditionMap.put(temp.getLabel(), temp);
                 conditionList.add(temp);
@@ -78,9 +66,7 @@ public class Program {
         //conditionList will be initialized with all JumpByteCodes
 
         for (JumpByteCode jumpByteCode : conditionList) {
-            String currLabel = jumpByteCode.getLabel();
-            int newAddress = labelMap.get(currLabel);
-            jumpByteCode.setAddress(newAddress);
+            jumpByteCode.setAddress(labelMap.get(jumpByteCode.getLabel()));
         }
 
 //        for (HashMap.Entry<String,JumpByteCode> entry : conditionMap.entrySet()){
@@ -89,18 +75,5 @@ public class Program {
 //            //now set the corresponding JumpByteCode to the new address
 //            entry.getValue().setAddress(newAddress);
 //        }
-        /*
-        what if i was right and I should make two maps, to make this more efficient
-        so it could be
-
-        this.getCode(ByteCodeMap.get(Label)).setAddress(labelMap.get(address))
-
-        maybe we could use the putAll function?
-
-        how would this hold up if we add more conditioinal branches?
-        should we add another abstract class that implements ByteCode?
-        abstract class could be for conditional jumps
-         */
-
     }
 }

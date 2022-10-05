@@ -24,10 +24,6 @@ import java.util.ArrayList;
  * where n is the number of args of the new call frame.
  */
 
-/**
- * TODO: implement logic
- */
-
 public class ArgsCode extends ByteCode{
 
     private int argsNum;

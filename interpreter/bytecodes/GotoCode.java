@@ -51,5 +51,6 @@ public class GotoCode extends JumpByteCode{
     @Override
     public String getLabel(){ return label; }
 
+    @Override
     public void setAddress(int address){ this.address = address; }
 }

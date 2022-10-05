@@ -22,9 +22,7 @@ public class VirtualMachine {
 
     public void executeProgram(){
         isRunning = true;
-        /**
-         * Need to add dumping implementation
-         */
+
         while (isRunning){ //add check for dump in loop
             ByteCode code = program.getCode(programCounter);
             code.execute(this);
@@ -52,15 +50,15 @@ public class VirtualMachine {
     }
 
     public void callCode(int newProgramCount){
-        returnAddress.push(programCounter); //save the old address,so we go to the next step, avoid a loop (+1?)
+        returnAddress.push(programCounter);
         programCounter = newProgramCount;
     }
 
     public void returnCode(){
         if (!returnAddress.isEmpty()) {
             programCounter = returnAddress.pop();
-        }//should we add one so we can go to the next step and avoid a loop
-    } //POTENTIAL INFINITE LOOP ERROR***********************************************************************
+        }
+    }
 
 
     public int pop(){
@@ -120,11 +118,6 @@ public class VirtualMachine {
         runTimeStack.printFramePointer();
     }
 
-    public void haltCode(){
-        /**
-         * TODO: add checks before closing program
-         */
-        isRunning = false;
-    }
+    public void haltCode(){ isRunning = false; }
 
 }

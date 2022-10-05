@@ -31,14 +31,6 @@ import java.util.ArrayList;
  * where operator is the operation executed. For example, if we execute a + operation the, dumping the bytecode would be:
  */
 
-
-/**
- * TODO: implement logic
- */
-//why wouldn't it be three arguments? one for the operator?
-
-    //I think when we initialize these byteCodes they will all have the arguments filled
-
 public class BopCode extends ByteCode{
     private String operator;
 
