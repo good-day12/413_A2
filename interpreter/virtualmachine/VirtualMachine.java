@@ -2,6 +2,7 @@ package interpreter.virtualmachine;
 
 import interpreter.bytecodes.ByteCode;
 
+import java.util.List;
 import java.util.Stack;
 
 public class VirtualMachine {
@@ -11,7 +12,7 @@ public class VirtualMachine {
     private Program        program;
     private int            programCounter;
     private boolean        isRunning;
-    private boolean        dumpFlag = false; //if dumpFlag is on call dump method for each bytecode?
+    private boolean        dumpFlag = true; //if dumpFlag is on call dump method for each bytecode?
 
     public VirtualMachine(Program program) { //this object will already be loaded with everything by the interpreter
         this.program = program;
@@ -114,8 +115,8 @@ public class VirtualMachine {
         }
     }
 
-    public void printFrame(){
-        runTimeStack.printFramePointer();
+    public List<Integer> getCurrentFrame(){
+        return runTimeStack.getCurrentFrame();
     }
 
     public void haltCode(){ isRunning = false; }

@@ -15,6 +15,10 @@ import java.util.ArrayList;
  * or ”OFF”.
  * • The Dump ByteCode is NOT TO BE DUMPED.
  */
+
+/**
+ * Dump byte code is used to turn the dumping
+ */
 public class DumpCode implements ByteCode {
 
     private boolean dumpFlag;

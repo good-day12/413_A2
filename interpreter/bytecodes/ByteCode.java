@@ -1,7 +1,6 @@
 package interpreter.bytecodes;
 
 import interpreter.virtualmachine.VirtualMachine;
-
 import java.util.ArrayList;
 
 /**
@@ -28,7 +27,5 @@ public interface ByteCode {
      * Print out information about ByteCode's data field and execution
      */
     void dump();
-
-
 }
 

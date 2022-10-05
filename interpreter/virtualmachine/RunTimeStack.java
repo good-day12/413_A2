@@ -119,7 +119,6 @@ class RunTimeStack {
         if (framePointer.size() != 1) { //zero should always be loaded into here so if size is one leave zero in here
             framePointer.pop();
         }
-
     }
 
     /**
@@ -150,58 +149,18 @@ class RunTimeStack {
     }
 
     /**
-     * How to test this class
+     * To print current frame
      */
-    /*******************************************************************************************************************************
-     * Only for testing in this class
-     */
-    private void printRuntime (){
-        runTimeStack.forEach(v-> System.out.print(v + ", "));
-
+    public List<Integer> getCurrentFrame (){
+        List<Integer> currentFrame = new ArrayList<>();
+        //check we have a frame to print
+        if (framePointer.size() != 1 && runTimeStack.size() > framePointer.peek()) {
+            currentFrame = runTimeStack.subList(framePointer.peek(), runTimeStack.size());
+        }
+        return currentFrame;
     }
 
     public void printFramePointer(){
         framePointer.forEach(v-> System.out.print(v + ", "));
-    }
-/*
-Use this to test the runTimeStack
- */
-    public static void main(String[] args) throws RuntimeStackIllegalAccess {
-        RunTimeStack x = new RunTimeStack();
-        x.push(0);
-        x.push(0);
-        x.push(5);
-        x.store(0);
-
-
-        x.newFrameAt(0);
-        x.popFrame();
-//        x.push(4);
-//        x.push(5);
-//        x.push(6);
-//
-//
-//        //create new Frame
-//        x.newFrameAt(0); //create two arguments to load into "function"
-//
-//        x.push(7); //act like our function is pushing these to the runtime stack
-//        x.push(8);
-//        x.push(9);  //lets say nine is the return value we want and we want to exit function now
-//
-//        x.popFrame();
-//        x.popFrame();
-//        x.popFrame();
-//
-//        x.push(0);
-//        x.pop();
-
-        //I need to test the returnCode logic in here
-
-
-        System.out.println(x.dump());
-        x.printFramePointer();
-
-
-
     }
 }
