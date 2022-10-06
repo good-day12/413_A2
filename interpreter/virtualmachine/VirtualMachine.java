@@ -23,7 +23,6 @@ public class VirtualMachine {
 
     public void executeProgram(){
         isRunning = true;
-
         while (isRunning){ //add check for dump in loop
             ByteCode code = program.getCode(programCounter);
             code.execute(this);
@@ -34,13 +33,6 @@ public class VirtualMachine {
             programCounter++;
         }
     }
-
-    /**
-     * Will contain many functions to assist bytecodes
-     * Create a method to halt program if HaltCode is found?
-     */
-
-
 
     public void setDumpFlag(boolean arg){
         dumpFlag = arg;
@@ -120,5 +112,14 @@ public class VirtualMachine {
     }
 
     public void haltCode(){ isRunning = false; }
+
+    /**
+     * for Return Code information
+     * @param pc
+     * @return
+     */
+    public ByteCode codeAt(int pc){
+        return program.getCode(pc);
+    }
 
 }

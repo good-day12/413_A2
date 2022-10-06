@@ -5,46 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 3.9 Call ByteCode
- * The Call ByteCode is what the VirtualMachine uses to jump to locations in the program to execute sections of code we
- * call Functions. When encountered the Call ByteCode will jump to the corresponding label in the program. The ByteCde
- * is also responsible of keeping track of where control should return to when a function completes its execution.
+ * CALL BYTE CODE
+ * Has one argument, a label it needs to jump to, resolveAddress function in program
+ * will give the correct address for our address value
+ * Call code will store the return address on return stack in VM, then jump to the
+ * address specified by the label
  *
- * 3.9.1 Requriements
- * • Call ByteCode takes 1 argument, a label to jump to.
- * • Call Code must go through address resolution to figure out where it needs to jump to
- * in the Program before the program is ran.
- * • Call Code must store a return address onto the Return Address Stack.
- * • Call Code must Jump the address in the program that corresponds to a label code (this address is computed during
- *      address resolution).
- * • If dumping is on, the Call ByteCode is requried to be dumped.
- * • The Call bytecode cannot detect when it should be dumped nor should it call dump
- * in the VirtualMachine.
- *
- * 3.9.2 Dumping
- * The Call bytecode has the following dump syntax:
- *      Basic Syntax : CALL <id>   <base-id>(<args>)
- *      <id> is a function identifier
- *      <base-id> is the actual id of the function;
- *      e.g. for CALL f<<2>>, the <base-id> is f
- *      <args> are the function arguments.
- *      Example      :
- *      If we assume the RuntimeStack has the following values
- *          [0,1,2] [3,4,5]
- *      And we execute a CALL f<<3>>.
- *      Before the CALL code is executed, an ARGS 3 has been executed.
- *      Then the dumping of the call code looks as follows:
- *      CALL f<<3>>   f(3,4,5)
- */
-
-
-/**
- * TODO: implement DUMP logic
- */
+ * DUMP: "CALL label f<args> "
+ *     where args are the arguments being passed to the function
+ * */
 public class CallCode implements JumpByteCode {
 
     private String label;
-    private int address;
+    private int resolvedAddress;
     private List<Integer> argsForDump = new ArrayList<>();
 
     @Override
@@ -54,7 +27,7 @@ public class CallCode implements JumpByteCode {
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.callCode(address);
+        vm.callCode(resolvedAddress);
         argsForDump = vm.getCurrentFrame();
     }
 
@@ -71,11 +44,8 @@ public class CallCode implements JumpByteCode {
         this.label = label;
     }
 
-    public int getAddress() {
-        return address;
-    }
-
+    @Override
     public void setAddress(int address) {
-        this.address = address;
+        this.resolvedAddress = address;
     }
 }

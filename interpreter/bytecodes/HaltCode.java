@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 
 /**
- * TODO: implement logic
+ * HALT BYTE CODE:
+ * Will stop the program immediately
+ *
+ * DUMP: n/a
  */
 public class HaltCode implements ByteCode {
     @Override
-    public void init(ArrayList<String> stringArray) {
-
-    }
+    public void init(ArrayList<String> stringArray) { /*No arguments required*/ }
 
     @Override
     public void execute(VirtualMachine vm) {
@@ -20,7 +21,5 @@ public class HaltCode implements ByteCode {
     }
 
     @Override
-    public void dump() {
-
-    }
+    public void dump() { /*No dump required*/ }
 }

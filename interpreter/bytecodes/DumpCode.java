@@ -5,19 +5,10 @@ import interpreter.virtualmachine.VirtualMachine;
 import java.util.ArrayList;
 
 /**
- * 3.15 Dump ByteCode
- * The Dump ByteCode is used to turn dumping ON and OFF. Dumping in the interpreter project is only done when dumping is
- * ON.
+ * DUMP BYTE CODE:
+ * Turns dumping on or off, has one argument, either "ON" or "OFF"
  *
- * 3.15.1 Requirements
- * • The Dump ByteCode has 1 argument. Either ”ON” or ”OFF”
- * • The Dump ByteCode must request the VirtualMachine to turn dumping either ”ON”
- * or ”OFF”.
- * • The Dump ByteCode is NOT TO BE DUMPED.
- */
-
-/**
- * Dump byte code is used to turn the dumping
+ * DUMP: n/a
  */
 public class DumpCode implements ByteCode {
 
@@ -39,6 +30,6 @@ public class DumpCode implements ByteCode {
 
     @Override
     public void dump() {
-
+        /*Dump ByteCode is not to be dumped*/
     }
 }

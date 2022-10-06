@@ -20,7 +20,14 @@ import java.util.ArrayList;
  */
 
 /**
- * TODO: implement logic
+ * POP BYTE CODE:
+ * Used to remove value from the runTimeStack
+ * cannot operate across frame boundaries
+ * has one arugment, the number of values to be popped
+ * If we have too many values to be popped, we will pop as many as we can within our current frame
+ * then do nothing and allow the program to continue uninterrupted
+ *
+ * DUMP: "POP popNum" where popNum is the number of pops to perform
  */
 
 public class PopCode implements ByteCode{

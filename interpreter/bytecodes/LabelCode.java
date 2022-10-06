@@ -21,9 +21,14 @@ import java.util.ArrayList;
 
 
 /**
- * TODO: implement logic
+ * LABEL BYTE CODE:
+ * Has no functionality, it's purpose is to mark locations in the program for where
+ * JumpByteCodes could potentially jump to
+ *
+ * DUMP: "LABEL label"
+ * where label is the current label
  */
-public class LabelCode implements ByteCode {
+public class LabelCode implements JumpByteCode {
 
     private String label;
 
@@ -33,9 +38,7 @@ public class LabelCode implements ByteCode {
     }
 
     @Override
-    public void execute(VirtualMachine vm) {
-
-    }
+    public void execute(VirtualMachine vm) {/*Has nothing to execute*/}
 
     @Override
     public void dump() {
@@ -45,4 +48,7 @@ public class LabelCode implements ByteCode {
     public void setLabel(String l) { label = l; }
 
     public String getLabel (){ return label; }
+
+    @Override
+    public void setAddress(int address) {}
 }

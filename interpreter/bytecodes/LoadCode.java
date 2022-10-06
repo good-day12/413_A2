@@ -37,7 +37,15 @@ import java.util.ArrayList;
  */
 
 /**
- * TODO: implement logic
+ * LOAD BYTE CODE:
+ * Move values that are at offset from top of current frame to the top of the stack
+ * cannot operate across frame boundaries
+ * Can have one to two arguments
+ * 1st argument is the offset to current frame for values to be copied
+ * 2nd argument is the identifier the value belongs to (not necessary for functionality)
+ *
+ * DUMP:    "LOAD offset id" if id exists
+ *          "LOAD offset" if no id exists
  */
 
 public class LoadCode implements ByteCode{

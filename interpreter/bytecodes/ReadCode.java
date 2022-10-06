@@ -26,7 +26,10 @@ import java.util.Scanner;
  */
 
 /**
- * TODO: implement logic
+ * READ BYTE CODE:
+ * This Byte Code's job is to read an input from the user and push it to the top of the RunTimeStack
+ *
+ * DUMP: "READ"
  */
 
 public class ReadCode implements ByteCode{

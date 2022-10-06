@@ -27,7 +27,12 @@ import java.util.ArrayList;
  */
 
 /**
- * TODO: implement logic
+ * LIT BYTE CODE:
+ * takes one or two arguments, must push a value onto the runTimeStack
+ * 1st argument is the value, 2nd is the identifier (2nd does not need to exist)
+ *
+ * DUMP:    "LIT id int value" if we have an identifier
+ *          "LIT value" if no identifier
  */
 
 public class LitCode implements ByteCode{

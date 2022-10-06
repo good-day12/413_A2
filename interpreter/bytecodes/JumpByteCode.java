@@ -2,9 +2,21 @@ package interpreter.bytecodes;
 
 public interface JumpByteCode extends ByteCode{
 
-    public abstract void setLabel(String label);
+    /**
+     * Will set the JumpByteCodes's label value to the given string
+     * @param label what we are setting our JumpByteCode's label to
+     */
+    void setLabel(String label);
 
-    public abstract String getLabel();
+    /**
+     * Will return the JumpByteCode's current label
+     * @return a string representing the current label
+     */
+    String getLabel();
 
-    public abstract void setAddress(int address);
+    /**
+     * Will set the JumpByteCode's resolvedAddress to the address given
+     * @param address the new address for our resolvedAddress
+     */
+    void setAddress(int address);
 }

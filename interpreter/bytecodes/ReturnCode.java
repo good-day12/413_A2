@@ -37,26 +37,41 @@ import java.util.ArrayList;
  */
 
 /**
- * TODO: implement logic
+ * RETURN BYTE CODE:
+ * Used to return from functions and to put return values from function in the top of the stack.
+ * Has one optional argument, a label
+ * Must store return vale, empty current frame, pop value from framePointer stack, pop value from
+ * return address stack and set programCounter to that return value
+ *
+ * DUMP: "RETURN label EXIT base-label : returnValue"
  */
 
 public class ReturnCode implements ByteCode{
-
+    private int returnValue;
+    private String label ="";
+//    private String label2;
     @Override
-    public void init(ArrayList<String> stringArray) {
-
-    }
+    public void init(ArrayList<String> stringArray) { label = stringArray.get(0); }
 
     @Override
     public void execute(VirtualMachine vm) {
-        int temp = vm.pop(); //temp int to hold return value
-        vm.popFrame();
-        vm.pushValue(temp);//put that value back into our stack to return that value
-        vm.returnCode();
+        returnValue = vm.pop(); //temp int to hold return value
+        //store the label for dump in label
+//        JumpByteCode temp = (JumpByteCode) vm.codeAt(returnValue);
+//        label2 = temp.getLabel();
+        vm.popFrame(); //get rid of current frame
+        vm.pushValue(returnValue);//put that value back into our stack to return that value
+        vm.returnCode(); //return the code back to original address before jump
     }
 
     @Override
     public void dump() {
-        System.out.println("RETURN"); //*********************NEEDS MORE IMPLEMENTATION
+        if (!label.equals("")) {
+            System.out.println("RETURN " + label + " EXIT " + label.substring(0, label.indexOf('<'))
+                    + " : " + returnValue);
+        }
+        else {
+            System.out.println("RETURN " + returnValue);
+        }
     }
 }

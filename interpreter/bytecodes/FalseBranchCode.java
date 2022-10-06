@@ -5,39 +5,18 @@ import interpreter.virtualmachine.VirtualMachine;
 import java.util.ArrayList;
 
 /**
- * 3.3 FalseBranch ByteCode
- * The FalseBranch ByteCode will be used to execute conditional jumps( think of executing control structures like
- * if-statements and loops). FalseBranch will have one argument. This argument is a Label that will mark a place
- * in the program to jump to. FalseBranch will remove the top value of the run time stack and check to see if the
- * value is 0. If the value is 0, jump the corresponding label. If the value is something else, move to the next
- * ByteCode in the program. FalseBranch will need to have its label address calculated before the program begins
- * executing. This requires finding where the destination of the jump is going to be numerically(address in the
- * program) in the program.
+ * FALSE BRANCH CODE
+ * Used to executed conditional jumps, has a label that will control where the code jumps,
+ * address will be given in resolveAddress function from program
+ * We must pop the top of the stack and if that value is 0 we will jump to the label, if it is
+ * anything else we will not perform the jump
  *
- * 3.3.1 Requirements
- * • FalseBranch takes one argument, a label to jump to.
- * • FalseBranch’s label address will need to be resolved. This requires computing where FalseBranch will jump to
- * if the value popped from the stack is 0. Address resolution needs to be done before you began executing the
- * program. This will be discussed later in this document.
- *
- * • Remove the top value of the stack.
- * – if value is 0, jump to label.
- * – if value is not 0, move to next ByteCode. (do nothing)
- * • If dump is on, FalseBranch ByteCode is required to be dumped.
- * • The FalseBranch bytecode cannot detect when it should be dumped nor should it call
- * dump in the VirtualMachine.
- * 3.3.2 Dumping
- * The FalseBranch bytecode has the following dump syntax:
- *     FALSEBRANCH label
- * where label is the originallabel read from the .cod files.
- */
-
-/**
- * TODO: implement logic
+ * DUMP: "FALSEBRANCH label"
+ * label is the label we might jump to
  */
 public class FalseBranchCode implements JumpByteCode {
     private String label;
-    private int address;
+    private int resolvedAddress;
 
     @Override
     public void init(ArrayList<String> stringArray) {
@@ -48,7 +27,7 @@ public class FalseBranchCode implements JumpByteCode {
     public void execute(VirtualMachine vm) {
         //if top of stack is 0 we will jump to label
         if (vm.pop() == 0){
-            vm.setProgramCounter(address);
+            vm.setProgramCounter(resolvedAddress);
         }
 
     }
@@ -58,7 +37,7 @@ public class FalseBranchCode implements JumpByteCode {
         System.out.println("FALSEBRANCH " + label);
     }
 
-    public void setAddress(int address){ this.address = address; }
+    public void setAddress(int address){ this.resolvedAddress = address; }
 
     @Override
     public void setLabel(String label) { this.label = label; }
