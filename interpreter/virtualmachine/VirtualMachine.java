@@ -78,7 +78,11 @@ public class VirtualMachine {
         try {
             return runTimeStack.pop();
         } catch (RuntimeStackIllegalAccess e) {
-            return 0; //if we pop more than we have
+            return 0;
+            /*
+            * Cannot throw error here because Pop is allowed to have more than the allowed number of pops
+            * we just pop all that we are allowed to pop, then continue on
+            */
         }
     }
 

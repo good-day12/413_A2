@@ -21,6 +21,10 @@ public class BopCode implements ByteCode {
         operator = stringArray.get(0);
     }
 
+/*
+can use HashMaps with lambda expressions
+ */
+
     @Override
     public void execute(VirtualMachine vm) {
         int temp1 = vm.pop(); //temp values to hold our popped values because they need to be reversed
