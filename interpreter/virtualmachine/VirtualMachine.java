@@ -12,7 +12,7 @@ public class VirtualMachine {
     private Program        program;
     private int            programCounter;
     private boolean        isRunning;
-    private boolean        dumpFlag = true;
+    private boolean        dumpFlag = false;
 
     public VirtualMachine(Program program) {
         this.program = program;

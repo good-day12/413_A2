@@ -39,7 +39,6 @@ public class Interpreter {
         program.resolveAddress();
         VirtualMachine virtualMachine = new VirtualMachine(program);
         virtualMachine.executeProgram();
-        
     }
 
     public static void main(String args[]) {
