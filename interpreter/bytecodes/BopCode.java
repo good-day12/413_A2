@@ -5,7 +5,7 @@ import interpreter.virtualmachine.VirtualMachine;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@FunctionalInterface //used for lambda expressions
+@FunctionalInterface //used for lambda expressions, limits interface to one method only
 interface Operate{ //local interface for our lambda expressions only
     int execute(int param1, int param2);
 }
