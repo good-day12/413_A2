@@ -32,7 +32,7 @@ public class CallCode implements JumpByteCode {
     }
 
     @Override
-    public void dump() { System.out.println("CALL " + label + "f" + argsForDump.toString()); }
+    public void dump() { System.out.println("CALL " + label + " f" + argsForDump.toString()); }
 
     @Override
     public String getLabel() {
