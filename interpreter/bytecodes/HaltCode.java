@@ -4,7 +4,6 @@ import interpreter.virtualmachine.VirtualMachine;
 
 import java.util.ArrayList;
 
-
 /**
  * HALT BYTE CODE:
  * Will stop the program immediately
