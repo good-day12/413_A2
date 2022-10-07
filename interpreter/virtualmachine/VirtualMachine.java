@@ -12,9 +12,9 @@ public class VirtualMachine {
     private Program        program;
     private int            programCounter;
     private boolean        isRunning;
-    private boolean        dumpFlag = true; //if dumpFlag is on call dump method for each bytecode?
+    private boolean        dumpFlag = true;
 
-    public VirtualMachine(Program program) { //this object will already be loaded with everything by the interpreter
+    public VirtualMachine(Program program) {
         this.program = program;
         this.runTimeStack = new RunTimeStack();
         this.returnAddress = new Stack<>();
@@ -34,26 +34,46 @@ public class VirtualMachine {
         }
     }
 
-    public void setDumpFlag(boolean arg){
-        dumpFlag = arg;
+    /**
+     * Used to set the dumpFlag if we are dumping or not
+     * @param dump a boolean value used to set the dumpFlag to true or not
+     */
+    public void setDumpFlag(boolean dump){
+        dumpFlag = dump;
     }
 
+    /**
+     * Used to change the programCounter
+     * @param newProgramCount the new programCounter value
+     */
     public void setProgramCounter(int newProgramCount){
         programCounter = newProgramCount;
     }
 
+    /**
+     * To execute the CallCode ByteCode, must save current programCounter
+     * in returnAddress stack and set the programCounter to the new value
+     * @param newProgramCount the new programCounter value
+     */
     public void callCode(int newProgramCount){
         returnAddress.push(programCounter);
         programCounter = newProgramCount;
     }
 
+    /**
+     * To execute the ReturnCode ByteCode, must set the programCounter to the
+     * returnAddress value
+     */
     public void returnCode(){
         if (!returnAddress.isEmpty()) {
             programCounter = returnAddress.pop();
         }
     }
 
-
+    /**
+     * To help ByteCodes do their jobs, pops the top of RunTimeStack
+     * @return the top of the RunTimeStack
+     */
     public int pop(){
         try {
             return runTimeStack.pop();
@@ -62,14 +82,22 @@ public class VirtualMachine {
         }
     }
 
+    /**
+     * To help ByteCodes do their jobs, push a value onto the RunTimeStack
+     * @param value - to be pushed onto stack
+     */
     public void pushValue (int value){
         runTimeStack.push(value);
     }
 
+    /**
+     * To help ByteCodes do their jobs, look at top of runTimeStack
+     * @return the top of the stack
+     */
     public int peek(){
         try {
             return runTimeStack.peek();
-        } catch (RuntimeStackIllegalAccess e) { //what should I do in the catch statement?
+        } catch (RuntimeStackIllegalAccess e) {
             e.printStackTrace();
         }
         return -1;
@@ -83,6 +111,10 @@ public class VirtualMachine {
         this.runTimeStack.newFrameAt(args);
     }
 
+    /**
+     * To help ByteCodes do their jobs, load values onto RunTimeStack
+     * @param offsetFromFrame how many values from Frame to load
+     */
     public void load(int offsetFromFrame){
         try {
             runTimeStack.load(offsetFromFrame);
@@ -91,14 +123,24 @@ public class VirtualMachine {
         }
     }
 
-    public void store(int offsetFromFrame){
+    /**
+     * To help ByteCodes do their jobs, stores value at offset from current frame
+     * onto the RunTimeStack
+     * @param offsetFromFrame offset where to find the value
+     * @return the value we loaded
+     */
+    public int store(int offsetFromFrame){
         try {
-            runTimeStack.store(offsetFromFrame);
+            return runTimeStack.store(offsetFromFrame);
         } catch (RuntimeStackIllegalAccess e) {
             e.printStackTrace();
+            return -1;
         }
     }
 
+    /**
+     * Destroy the current frame and remove it from the RunTimeStack
+     */
     public void popFrame(){
         try {
             runTimeStack.popFrame();
@@ -107,19 +149,16 @@ public class VirtualMachine {
         }
     }
 
+    /**
+     * Get the values of the current frame, to help the dump of CallCode
+     * @return list of values in current frame
+     */
     public List<Integer> getCurrentFrame(){
         return runTimeStack.getCurrentFrame();
     }
 
-    public void haltCode(){ isRunning = false; }
-
     /**
-     * for Return Code information
-     * @param pc
-     * @return
+     * To help haltCode stop the program by setting isRunning to false;
      */
-    public ByteCode codeAt(int pc){
-        return program.getCode(pc);
-    }
-
+    public void haltCode(){ isRunning = false; }
 }

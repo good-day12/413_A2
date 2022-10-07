@@ -22,7 +22,6 @@ public final class ByteCodeLoader {
     }
     
     /**
-     * TODO: implement logic
      * Loads a program from a .cod file.
      * @return a constructed Program Object.
      * @throws InvalidProgramException exception thrown when 
@@ -44,7 +43,6 @@ public final class ByteCodeLoader {
                 String  className = CodeTable.getClassName(expressionToken);//use class name to create instance of class
                 Class<?> c = Class.forName("interpreter.bytecodes."+ className); //create class with this name
                 ByteCode bc = (ByteCode) c.getDeclaredConstructor().newInstance();//create bytecode out of this class
-
                 //use this array to store our arguments, will pass this to init function
                 ArrayList<String> tokens = new ArrayList<>(); //to hold our arguments passed as tokens
                 while(expressionTokenizer.hasMoreTokens()){
@@ -53,14 +51,11 @@ public final class ByteCodeLoader {
                 bc.init(tokens); //initialize our ByteCode with the tokens arrayList of strings
                 program.addByteCode(bc); //add the initialized byteCode to our program
             }
-
 //catch errors thrown by getDeclaredConstructor and file not found error from scanner
         } catch (FileNotFoundException | ClassNotFoundException | InvocationTargetException | InstantiationException |
                 IllegalAccessException | NoSuchMethodException e){
-
             throw new InvalidProgramException(e);
         }
-
         return program;
     }
 }

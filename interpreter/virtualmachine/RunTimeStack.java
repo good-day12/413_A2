@@ -5,17 +5,10 @@ import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Stack;
 
-/**
- *  You will need to make sure that you protect the RunTimeStack from stack overflow or
- * stack underflow errors. Also make sure no ByteCode can pop past any frame boundary.
- */
-
 class RunTimeStack {
 
     private List<Integer>  runTimeStack; //values for entire program
     private Stack<Integer> framePointer; //tells us where every frame begins
-
-    private int index; //keep track of our runTimeStack index
 
     int lastIndex(){
         return Math.max(0, this.runTimeStack.size() - 1);
@@ -26,9 +19,7 @@ class RunTimeStack {
         framePointer = new Stack<>();
         // Add initial Frame Pointer, main is the entry
         // point of our language, so its frame pointer is 0. should never be empty
-        framePointer.add(0); //so the frame pointer holds the value of the runTimeStack that we are currently
-                                //working with? like if a function is called we would use the framePointer to
-                                //store
+        framePointer.add(0);
     }
 
     /**
@@ -96,7 +87,6 @@ class RunTimeStack {
             }
             runTimeStack.add(runTimeStack.get(offsetFromFramePointer + framePointer.peek()));
             return runTimeStack.get(lastIndex());
-
     }
 
     /**
@@ -149,7 +139,8 @@ class RunTimeStack {
     }
 
     /**
-     * To print current frame
+     * Get the values of the current frame
+     * @return a list filled with the values of the current frame
      */
     public List<Integer> getCurrentFrame (){
         List<Integer> currentFrame = new ArrayList<>();
@@ -158,9 +149,5 @@ class RunTimeStack {
             currentFrame = runTimeStack.subList(framePointer.peek(), runTimeStack.size());
         }
         return currentFrame;
-    }
-
-    public void printFramePointer(){
-        framePointer.forEach(v-> System.out.print(v + ", "));
     }
 }

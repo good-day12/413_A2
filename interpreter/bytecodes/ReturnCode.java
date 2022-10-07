@@ -56,9 +56,6 @@ public class ReturnCode implements ByteCode{
     @Override
     public void execute(VirtualMachine vm) {
         returnValue = vm.pop(); //temp int to hold return value
-        //store the label for dump in label
-//        JumpByteCode temp = (JumpByteCode) vm.codeAt(returnValue);
-//        label2 = temp.getLabel();
         vm.popFrame(); //get rid of current frame
         vm.pushValue(returnValue);//put that value back into our stack to return that value
         vm.returnCode(); //return the code back to original address before jump

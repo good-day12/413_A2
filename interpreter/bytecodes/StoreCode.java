@@ -35,13 +35,20 @@ import java.util.ArrayList;
  */
 
 /**
- * TODO: implement logic
+ * STORE BYTE CODE:
+ * Move values from top of runTimeStack to offset in current frame, cannot operate across frame boundaries
+ * Can have 1 to 2 arguments
+ * 1st argument - offset in current frame where value popped is to be stored
+ * 2nd argument - identifier of value (not necessary for function)
+ *
+ * DUMP: "STORE offset id id=value-popped
  */
 
 public class StoreCode implements ByteCode {
 
     int offsetFromFrame;
     String identifier = "";
+    private int valuePopped;
 
     @Override
     public void init(ArrayList<String> stringArray) {
@@ -51,11 +58,11 @@ public class StoreCode implements ByteCode {
 
     @Override
     public void execute(VirtualMachine vm) {
-        vm.store(offsetFromFrame);
+        valuePopped = vm.store(offsetFromFrame);
     }
 
     @Override
     public void dump() {
-        System.out.println("STORE " + offsetFromFrame + " " + identifier + " " + identifier + "=" + offsetFromFrame );
+        System.out.println("STORE " + offsetFromFrame + " " + identifier + " " + identifier + "=" + valuePopped );
     }
 }

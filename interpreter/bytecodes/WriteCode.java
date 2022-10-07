@@ -5,35 +5,21 @@ import interpreter.virtualmachine.VirtualMachine;
 import java.util.ArrayList;
 
 /**
- * 3.13 Write ByteCode
- * The Write ByteCode is used to display information to the console. The only thing Write is allowed to display is the
- * top value of the runtime stack. No other information is allowed to be shown.
+ * WRITE BYTE CODE:
+ * Writes the top of the stack to the console output
+ * has no arguments
  *
- * 3.13.1 Requirements
- * • Prints the top of the runtime stack to the console.
- * • NO OTHER information can be printed by the Write ByteCode when printing the
- * value.
- * • If dumping is on, bytecode is requried to be dumped.
- * • The Write bytecode cannot detect when it should be dumped nor should it call dump in the VirtualMachine.
- * 3.13.2 Dumping
- * The Write bytecode has the following dump synatx:
- * WRITE
- */
-
-/**
- * TODO: implement logic
+ * DUMP: WRITE
  */
 
 public class WriteCode implements ByteCode{
     @Override
-    public void init(ArrayList<String> stringArray) {
-
-    }
+    public void init(ArrayList<String> stringArray) {}
 
     @Override
     public void execute(VirtualMachine vm) {
         System.out.println(vm.peek());
-    } //peek or pop?
+    }
 
     @Override
     public void dump() {

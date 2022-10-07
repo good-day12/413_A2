@@ -42,6 +42,5 @@ public class CodeTable {
      */
     public static String getClassName(String byteCodeName){
         return codeTable.get(byteCodeName);
-        
     }
 }
